@@ -3,14 +3,14 @@ from django.db import models
 # Each word the student learns belongs to a specific category
 # such as animals,actions,anatomy, etc. This model represents
 # that.
-class WordCategories(models.Model):
+class WordCategory(models.Model):
     def __unicode__(self):
         return self.category
 
     category = models.CharField(max_length=64)
     img = models.URLField()
 
-# A media object is a non-textual representation of a word
+# A media object is a non-textual representation of a word.
 # It can be an image, video or an audio clip. Sometimes the
 # media object can be ambiguous (e.g. an image might have a
 # mouth where the expected match is 'chin'. These are in a
@@ -38,7 +38,7 @@ class SinhalaWord(models.Model):
     def __unicode__(self):
         return self.word
     word = models.CharField(max_length=32, unique=True)
-    category = models.ForeignKey("WordCategories")
+    category = models.ForeignKey("WordCategory")
     english = models.CharField(max_length=32)
     media = models.ManyToManyField('MediaObject', blank=True)
 
