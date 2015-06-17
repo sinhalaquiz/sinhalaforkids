@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <style>
+            .container {
+                width: 80%;
+                margin: 30px auto;
+                overflow: hidden;
+                float: center;
+            }
+            .galleryItem {
+                color: #797478;
+                font: 10px/1.5 Verdana, Helvetica, sans-serif;
+                float: left;
+                width: 28%;
+                margin:  2% 2% 50px 2%; 
+            }
+    
+            .galleryItem h3 {
+                text-transform: uppercase;
+            }
+    
+            .galleryItem img {
+                max-width: 100%;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Index</h1>
+            {% for choice in choices %}
+            <div class="galleryItem">
+                <a href="/tester/{{ choice.name }}/0"><img src="{{ choice.icon }}" alt=""></a>
+                <h3>{{ choice.name }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+
