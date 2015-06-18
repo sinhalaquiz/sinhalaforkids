@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script src="static/js/alertify.js"></script>
+        <link rel="stylesheet" href="static/css/alertify.css" />
+        <meta name="viewport" content="width=device-width">
+        <script>
+            function provideFeedback()
+            {
+                var expect='{{answer}}';
+                var choice = document.querySelector('input[name = "choice"]:checked').value;
+                if (choice === expect)
+                {
+                    alert("Well done!");
+                }
+                else
+                {
+                    alert("The answer is " + expect);
+                }
+            }
+        </script>
+        <style>
+            @font-face { 
+                font-family: 'BhashitaComplex';
+                src: url('static/fonts/LBhashitaComplex.ttf') format('truetype');
+            } 
+
+            .container {
+                width: 80%;
+                margin: 30px auto;
+                overflow: hidden;
+            }
+
+            .question {
+                font: 40px/1.5 Verdana, Helvetica, sans-serif;
+                color: #797478;
+                width: 50%;
+                margin:  2% 2% 50px 2%; 
+            }
+
+            .question img {
+                max-width: 100%;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+
+            .options {
+                font-family: BhashithaComplex;
+                font-size: 30px;
+                width: 50%;
+                margin:  2% 2% 50px 2%; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="question">
+                {% block question %}{% endblock %}
+            </div>
+
+            <div class="options"> 
+                <form action="/wordquiz/{{ cat }}/{{ idx }}" onsubmit="provideFeedback()" method="post">
+                    <input type="hidden", name="queue", value="{{queue}}">
+                    <input type="hidden", name="cat", value="{{cat}}">
+                    <input type="hidden", name="score", value="{{score}}">
+                    {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
+                    <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
+                    {% endfor %}
+                    <input type="submit" value="OK">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+
