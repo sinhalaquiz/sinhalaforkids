@@ -2,6 +2,7 @@ import random
 from wordquiz.models import WordCategory
 from wordquiz.models import SinhalaWord
 from django.shortcuts import render_to_response, Http404
+from django.template import RequestContext
 
 def get_choices(category, answer, exclusions):
     all_words = [i.word for i in SinhalaWord.objects.all() if i.category == category]
@@ -82,13 +83,13 @@ def create_exercise_list(category):
     l = exercises[0:20]
     return l
 
-def present_next_question(category, exercises, idx, score):
+def present_next_question(request, category, exercises, idx, score):
     try:
         ex = get_exercise_data(exercises[idx])
     except:
         raise Http404
 
-    context = { 
+    payload = { 
         'cat' : category, 
         'question': ex['question'], 
         'answer' : ex['answer'],
@@ -98,7 +99,8 @@ def present_next_question(category, exercises, idx, score):
         'score' : score
     }
 
-    return render_to_response('wordquiz/' + ex['template'], context)
+    return render_to_response('wordquiz/' + ex['template'], payload,
+            context_instance=RequestContext(request))
 
 def is_correct_choice(choice, exercise):
     qid = exercise['qid']
@@ -122,7 +124,7 @@ def index(request):
 
 def firstQuestion(request, category):
     exercises = create_exercise_list(category)
-    return present_next_question(category, exercises, 0, 0)
+    return present_next_question(request, category, exercises, 0, 0)
 
 def nextQuestion(request, category, idx):
     exercises = eval(request.POST['queue'])
@@ -137,6 +139,6 @@ def nextQuestion(request, category, idx):
         score = score + 1
         
     if i < len(exercises):
-        return present_next_question(category, exercises, i, score)
+        return present_next_question(request, category, exercises, i, score)
     return display_score(score, len(exercises))
 

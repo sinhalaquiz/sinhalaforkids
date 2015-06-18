@@ -60,6 +60,7 @@
 
             <div class="options"> 
                 <form action="/wordquiz/{{ cat }}/{{ idx }}" onsubmit="provideFeedback()" method="post">
+                    {% csrf_token %}
                     <input type="hidden", name="queue", value="{{queue}}">
                     <input type="hidden", name="cat", value="{{cat}}">
                     <input type="hidden", name="score", value="{{score}}">
