@@ -1,0 +1,7 @@
+{% extends "wordquiz/question-base.html" %}
+
+{% block question %}
+<iframe width="320" height="180"
+    src="{{question}}?autohide=1&autoplay=1&rel=0">
+</iframe>
+{% endblock %}

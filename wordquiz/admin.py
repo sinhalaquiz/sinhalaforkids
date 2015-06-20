@@ -11,6 +11,6 @@ class SinhalaWordAdmin(admin.ModelAdmin):
 admin.site.register(SinhalaWord, SinhalaWordAdmin)
 
 class MediaObjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'media_type')
+    list_display = ('short_name', 'title', 'media_type')
 
 admin.site.register(MediaObject, MediaObjectAdmin)

@@ -1,0 +1,9 @@
+{% extends "wordquiz/question-base.html" %}
+{% block question %}
+    <audio controls>
+    <source src="{{question}}" type="audio/wav">
+    Your browser does not support the audio element.
+</audio>
+{% endblock %}
+
+

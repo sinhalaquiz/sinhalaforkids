@@ -17,14 +17,16 @@ class WordCategory(models.Model):
 # list of exclusions
 class MediaObject(models.Model):
     def __unicode__(self):
-        return self.title
+        return "%s(%s)" % (self.short_name, self.media_type)
 
     MEDIA_TYPE_OPTIONS = (
         (u'vid', u'Video'),
         (u'aud', u'Audio'),
         (u'img', u'Image')
     )
+
     url = models.URLField()
+    short_name = models.CharField(max_length=16)
     media_type = models.CharField(max_length=3, choices=MEDIA_TYPE_OPTIONS)
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200, blank=True)

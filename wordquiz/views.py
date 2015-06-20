@@ -1,6 +1,7 @@
 import random
 from wordquiz.models import WordCategory
 from wordquiz.models import SinhalaWord
+from wordquiz.models import MediaObject
 from django.shortcuts import render_to_response, Http404
 from django.template import RequestContext
 
@@ -36,6 +37,7 @@ def build_url_nop(url):
 
 def get_media_exercise_data(exercise):
     obj = SinhalaWord.objects.get(id = exercise['qid'])
+    print exercise['objid']
     media = MediaObject.objects.get(id = exercise['objid'])
 
     # media_type is the index for build_info
@@ -47,7 +49,7 @@ def get_media_exercise_data(exercise):
 
     b = build_info[media.media_type]
     question = b['url_op'](media.url)
-    exclusions = [ex.word for ex in media.banned.all()]
+    exclusions = [ex.word for ex in media.exclusions.all()]
     choices = get_choices(obj.category, obj.word, exclusions)
     return { 
             'template' : b['template'],
@@ -84,10 +86,10 @@ def create_exercise_list(category):
     return l
 
 def present_next_question(request, category, exercises, idx, score):
-    try:
-        ex = get_exercise_data(exercises[idx])
-    except:
-        raise Http404
+    #try:
+    ex = get_exercise_data(exercises[idx])
+    #except:
+    #    raise Http404
 
     payload = { 
         'cat' : category, 
@@ -137,7 +139,7 @@ def nextQuestion(request, category, idx):
     # previous one for comparison
     if (is_correct_choice(choice, exercises[i-1])):
         score = score + 1
-        
+
     if i < len(exercises):
         return present_next_question(request, category, exercises, i, score)
     return display_score(score, len(exercises))
