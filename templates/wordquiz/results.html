@@ -1,13 +1,65 @@
 <html>
     <head>
-        Results
+        <style>
+            .container {
+                width: 80%;
+                margin: 30px auto;
+                overflow: hidden;
+                float: center;
+            }
+            .feedBack {
+                color: #404040;
+                font: 20px/1.5 Verdana, Helvetica, sans-serif;
+                float: left;
+                width: 28%;
+                margin:  2% 2% 50px 2%; 
+            }
+    
+            .feedBack h1 {
+                color: #797478;
+                text-transform: uppercase;
+            }
+
+            .buttonLink {
+                display: inline-block;
+                -webkit-box-sizing: content-box;
+                -moz-box-sizing: content-box;
+                box-sizing: content-box;
+                cursor: pointer;
+                padding: 10px 20px;
+                border: 1px solid #018dc4;
+                -webkit-border-radius: 24px;
+                border-radius: 24px;
+                font: normal 16px/normal Verdana, Geneva, sans-serif;
+                color: rgba(255,255,255,0.9);
+                -o-text-overflow: clip;
+                text-overflow: clip;
+                background: #0199d9;
+                -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+                box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) ;
+                text-shadow: -1px -1px 0 rgba(15,73,168,0.66) ;
+                -webkit-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+                -moz-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+                -o-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+                transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+                text-decoration: none;
+            }
+
+            .buttonLink:hover {
+                background: #ffffff;
+                color: #018dc4;
+                text-shadow: none;
+            }
+        </style>
     </head>
     <body>
-        <div id="results">
-            You got {{score}} out of {{total}}
+        <div class="container">
+            <div class="feedBack">
+                <h1>Results</h1>
+                Your score is {{score}} out of {{total}}
+                <br>
+                <a href="/wordquiz" class="buttonLink">Try another</a>
+            </div>
         </div>
-
-    <a href="/wordquiz">Start again</a>
     </body>
 </html>
-
