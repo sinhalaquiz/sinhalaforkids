@@ -1,7 +1,7 @@
 <html>
     <head>
-        <script src="static/js/alertify.js"></script>
-        <link rel="stylesheet" href="static/css/alertify.css" />
+        <script src="/static/js/alertify.js"></script>
+        <link rel="stylesheet" href="/static/css/alertify.css" />
         <meta name="viewport" content="width=device-width">
         <script>
             function provideFeedback()
@@ -10,11 +10,11 @@
                 var choice = document.querySelector('input[name = "choice"]:checked').value;
                 if (choice === expect)
                 {
-                    alert("Well done!");
+                    alertify.alert("Well done!");
                 }
                 else
                 {
-                    alert("The answer is " + expect);
+                    alertify.alert("The answer is " + expect);
                 }
             }
         </script>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="options"> 
-                <form action="/wordquiz/{{ cat }}/{{ idx }}" onsubmit="provideFeedback()" method="post">
+                <form action="/wordquiz/{{ cat }}/{{ idx }}" method="post">
                     {% csrf_token %}
                     <input type="hidden", name="queue", value="{{queue}}">
                     <input type="hidden", name="cat", value="{{cat}}">
@@ -67,7 +67,7 @@
                     {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
                     <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
                     {% endfor %}
-                    <input type="submit" value="OK">
+                    <button type="button" onclick="provideFeedback()">OK</button>
                 </form>
             </div>
         </div>
