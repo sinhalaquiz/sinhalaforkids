@@ -37,7 +37,6 @@ def build_url_nop(url):
 
 def get_media_exercise_data(exercise):
     obj = SinhalaWord.objects.get(id = exercise['qid'])
-    print exercise['objid']
     media = MediaObject.objects.get(id = exercise['objid'])
 
     # media_type is the index for build_info

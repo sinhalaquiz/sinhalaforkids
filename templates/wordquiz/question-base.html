@@ -1,20 +1,20 @@
 <html>
     <head>
-        <script src="/static/js/alertify.js"></script>
         <link rel="stylesheet" href="/static/css/alertify.css" />
+        <script src="/static/js/alertify.js"></script>
         <meta name="viewport" content="width=device-width">
         <script>
-            function provideFeedback()
+            function provideFeedback(on_ok)
             {
                 var expect='{{answer}}';
                 var choice = document.querySelector('input[name = "choice"]:checked').value;
                 if (choice === expect)
                 {
-                    alertify.alert("Well done!");
+                    alertify.alert("Well done!", on_ok);
                 }
                 else
                 {
-                    alertify.alert("The answer is " + expect);
+                    alertify.alert("The answer is " + expect, on_ok);
                 }
             }
         </script>
@@ -67,7 +67,9 @@
                     {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
                     <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
                     {% endfor %}
-                    <button type="button" onclick="provideFeedback()">OK</button>
+                    <button type="button" onclick="provideFeedback(function() {
+                        submit();
+                        })">OK</button>
                 </form>
             </div>
         </div>
