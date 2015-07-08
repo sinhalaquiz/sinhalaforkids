@@ -1,7 +1,8 @@
+{% load staticfiles %}
 <html>
     <head>
-        <link rel="stylesheet" href="/static/css/alertify.css" />
-        <script src="/static/js/alertify.js"></script>
+        <link rel="stylesheet" href="{% static "wordquiz/css/alertify.css" %}" />
+        <script src="{% static "wordquiz/js/alertify.js" %}"></script>
         <meta name="viewport" content="width=device-width">
         <script>
             function provideFeedback(on_ok)
@@ -21,7 +22,7 @@
         <style>
             @font-face { 
                 font-family: 'BhashitaComplex';
-                src: url('/static/fonts/LBhashitaComplex.ttf');
+                src: '{% static '/wordquiz/fonts/LBhashitaComplex.ttf' %}';
             } 
 
             .container {
