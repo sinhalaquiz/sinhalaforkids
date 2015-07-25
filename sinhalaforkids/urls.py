@@ -5,5 +5,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^wordquiz/', include('wordquiz.urls')),
+    url(r'^choosepic/', include('choosepic.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

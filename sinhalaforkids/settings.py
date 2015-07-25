@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'wordquiz',
+    'choosepic',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
