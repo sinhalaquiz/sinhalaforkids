@@ -137,32 +137,30 @@ function loadAllImages()
 
 function setImageVisibility(id, visible)
 {
-	document.getElementById("case"+ i).style.display = (visible) ? 'block' : 'none';
-	//document.images["case"+ i].src = (visible) ? images[i] : '{% static "choosepic/img/blank.png" %}';
+    document.getElementById("case"+ i).style.display = (visible) ? 'block' : 'none';
 }
 
 function showAllImages()
 {
     for (i=0; i<nbImages; i++) {
-		setImageVisibility(i, true);
+        setImageVisibility(i, true);
     }
 }
 
 function clearAllImages()
 {
     for (i=0; i<nbImages; i++) {
-		setImageVisibility(i, false);
+        setImageVisibility(i, false);
     }
 }
 
 // The game has a state machine and these are the events
 var gameEvents = {
-STATE_ENTRY : -2,
-              STATE_EXIT : -1,
-              RESET : 0,
-              PEEK : 1,
-              CLOSEPEEK : 2,
-              CHOOSE : 3,
+    STATE_ENTRY : -2,
+    STATE_EXIT : -1,
+    RESET : 0,
+    PEEK : 1,
+    CHOOSE : 3,
 };
 
 // State machine specific variables
@@ -183,7 +181,7 @@ function setState(stateFunction)
 function initState(event, payload)
 {
     if (event == gameEvents.RESET) {
-		loadAllImages();
+        loadAllImages();
         setState(startGameState);
     }
 }
@@ -246,21 +244,15 @@ function awaitChoiceState(event, payload)
     switch(event) {
         case gameEvents.STATE_ENTRY:
             showAllImages();
-			do {
-				prev=answer;
-    	        answer=Math.floor(Math.random()*nbImages);
-			} while(prev == answer);
+                do {
+		    prev=answer;
+    	            answer=Math.floor(Math.random()*nbImages);
+            } while(prev == answer);
             document.getElementById("word").innerHTML = words[answer];
             setCtrlPanelState(ctrlPanelStates.PEEKING);
-            t1=setTimeout("onPeekOver()", 2000)
-                break;
-
-        case gameEvents.STATE_EXIT:
-            clearTimeout(t1);
             break;
 
-        case gameEvents.CLOSEPEEK:
-            setCtrlPanelState(ctrlPanelStates.BLANK);
+        case gameEvents.STATE_EXIT:
             break;
 
         case gameEvents.CHOOSE:
@@ -319,11 +311,6 @@ function onPeekRequest()
     stateMachine(gameEvents.PEEK, null);
 }
 
-function onPeekOver()
-{
-    stateMachine(gameEvents.CLOSEPEEK, null);
-}
-
 function onChoose(choice)
 {
     stateMachine(gameEvents.CHOOSE, choice);
@@ -341,7 +328,7 @@ function onChoose(choice)
         <div class="cell left"><a href="#" onmousedown="onChoose(4);"><img src='{% static "choosepic/img/blank.png" %}' id="case4"></a></div>
         <div class="ctrlpanel left">
             <div class="panelchild" id="gameover">
-                <a href="#" onmousedown="resetBoard();"> <img src='{% static "choosepic/img/play.png" %}'/></a>
+                <a href="/choosepic/{{category}}" onmousedown="location.reload();"> <img src='{% static "choosepic/img/play.png" %}'/></a>
                 <a href="/choosepic"> <img src='{% static "choosepic/img/stop.png" %}'/></a>
             </div>
             <div class="panelchild" id="wordpanel">

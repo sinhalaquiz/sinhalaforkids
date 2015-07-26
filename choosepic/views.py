@@ -1,6 +1,7 @@
 import random
 from django.shortcuts import render
 from wordquiz.models import SinhalaWord
+from wordquiz.models import WordCategory
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -17,13 +18,20 @@ def startGame(request, category):
     random.shuffle(pairs)
     top10 = pairs[0:10]
     context = { 
-            'words' : [i[0] for i in top10],
-            'urls': [i[1] for i in top10]
+            'category'  : category,
+            'words'     : [i[0] for i in top10],
+            'urls'      : [i[1] for i in top10]
     }
     return render_to_response('choosepic/game.html', context,
             context_instance=RequestContext(request))
 
+def haveSufficientImages(category):
+    return True
+
 def index(request):
-    return startGame(request, 'animals')
+    categories = [cat for cat in WordCategory.objects.all()]
+    choices = [{'name' : cat.category, 'icon' : cat.img} 
+            for cat in categories if haveSufficientImages(cat)]
+    return render_to_response('choosepic/index.html', { 'choices' : choices})
 
 
