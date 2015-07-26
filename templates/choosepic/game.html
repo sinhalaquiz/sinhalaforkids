@@ -15,7 +15,10 @@
                 width: 640px;
                 height: 480px;
                 margin: auto;
-            }
+				border: 10px solid;
+    			border-radius: 25px;
+				border-color: cyan;
+			}
 
             .row {
                 width: 100%;
@@ -26,6 +29,7 @@
                 width: 25%;
                 height: 100%;
                 text-align: center;
+                position: relative;
             }
 
             .cell img {
@@ -120,21 +124,34 @@ function setCtrlPanelState(s)
 function resetScore()
 {
     for (i = 0; i < maxRounds; i++) {
-        document.images["oui" + i].src = '{% static "choosepic/img/unscored.png" %}';
+        document.images["point" + i].src = '{% static "choosepic/img/unscored.png" %}';
     }
 }
 
-function showAllImages()
+function loadAllImages()
 {
     for (i=0; i<nbImages; i++) {
         document.images["case"+ i].src=images[i];
     }
 }
 
+function setImageVisibility(id, visible)
+{
+	document.getElementById("case"+ i).style.display = (visible) ? 'block' : 'none';
+	//document.images["case"+ i].src = (visible) ? images[i] : '{% static "choosepic/img/blank.png" %}';
+}
+
+function showAllImages()
+{
+    for (i=0; i<nbImages; i++) {
+		setImageVisibility(i, true);
+    }
+}
+
 function clearAllImages()
 {
     for (i=0; i<nbImages; i++) {
-        document.images["case"+ i].src = '{% static "choosepic/img/blank.png" %}';
+		setImageVisibility(i, false);
     }
 }
 
@@ -166,6 +183,7 @@ function setState(stateFunction)
 function initState(event, payload)
 {
     if (event == gameEvents.RESET) {
+		loadAllImages();
         setState(startGameState);
     }
 }
@@ -247,9 +265,9 @@ function awaitChoiceState(event, payload)
 
         case gameEvents.CHOOSE:
             // The payload is the choice
-            document.images["oui"+gameRound].src = (payload == answer) ? '{% static "choosepic/img/happy.png" %}' : '{% static "choosepic/img/sad.png" %}';
+            document.images["point"+gameRound].src = (payload == answer) ? '{% static "choosepic/img/happy.png" %}' : '{% static "choosepic/img/sad.png" %}';
             for (i=0; i<nbImages; i++) {
-                document.images["case" + i].src = (i == answer) ? images[i] : '{% static "choosepic/img/blank.png" %}';
+				setImageVisibility(i, (i == answer));
             }
             gameRound++;
             (gameRound == maxRounds) ? setState(gameOverState) : setState(startRoundState);
@@ -314,17 +332,17 @@ function onChoose(choice)
 
 <div class="container">
     <div class="row">
-        <div class="cell left"><a href="#" onmousedown="onChoose(0);"><img src='{% static "choosepic/img/blank.png" %}' name="case0"></a></div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(1);"><img src='{% static "choosepic/img/blank.png" %}' name="case1"></a></div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(2);"><img src='{% static "choosepic/img/blank.png" %}' name="case2"></a></div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(3);"><img src='{% static "choosepic/img/blank.png" %}' name="case3"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(0);"><img src='{% static "choosepic/img/blank.png" %}' id="case0"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(1);"><img src='{% static "choosepic/img/blank.png" %}' id="case1"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(2);"><img src='{% static "choosepic/img/blank.png" %}' id="case2"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(3);"><img src='{% static "choosepic/img/blank.png" %}' id="case3"></a></div>
     </div>
     <div class="row">
-        <div class="cell left"><a href="#" onmousedown="onChoose(4);"><img src='{% static "choosepic/img/blank.png" %}' name="case4"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(4);"><img src='{% static "choosepic/img/blank.png" %}' id="case4"></a></div>
         <div class="ctrlpanel left">
             <div class="panelchild" id="gameover">
                 <a href="#" onmousedown="resetBoard();"> <img src='{% static "choosepic/img/play.png" %}'/></a>
-                <a href="www.google.com"> <img src='{% static "choosepic/img/stop.png" %}'/></a>
+                <a href="/choosepic"> <img src='{% static "choosepic/img/stop.png" %}'/></a>
             </div>
             <div class="panelchild" id="wordpanel">
                 <p id="word"></p>
@@ -334,36 +352,36 @@ function onChoose(choice)
             </div>
             <div class="panelchild" id="blankpanel"></div>
         </div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(5);"><img src="{% static "choosepic/img/blank.png" %}" name="case5"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(5);"><img src="{% static "choosepic/img/blank.png" %}" id="case5"></a></div>
     </div>
     <div class="row">
-        <div class="cell left"><a href="#" onmousedown="onChoose(6);"><img src='{% static "choosepic/img/blank.png" %}' name="case6"></a></div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(7);"><img src='{% static "choosepic/img/blank.png" %}' name="case7"></a></div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(8);"><img src='{% static "choosepic/img/blank.png" %}' name="case8"></a></div>
-        <div class="cell left"><a href="#" onmousedown="onChoose(9);"><img src='{% static "choosepic/img/blank.png" %}' name="case9"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(6);"><img src='{% static "choosepic/img/blank.png" %}' id="case6"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(7);"><img src='{% static "choosepic/img/blank.png" %}' id="case7"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(8);"><img src='{% static "choosepic/img/blank.png" %}' id="case8"></a></div>
+        <div class="cell left"><a href="#" onmousedown="onChoose(9);"><img src='{% static "choosepic/img/blank.png" %}' id="case9"></a></div>
     </div>
 </div>
 <div class="score">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui0">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui1">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui2">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui3">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui4">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui5">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui6">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui7">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui8">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui9">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui10">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui11">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui12">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui13">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui14">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui15">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui16">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui17">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui18">
-    <img src={% static "choosepic/img/unscored.png" %} name="oui19">
+    <img src={% static "choosepic/img/unscored.png" %} name="point0">
+    <img src={% static "choosepic/img/unscored.png" %} name="point1">
+    <img src={% static "choosepic/img/unscored.png" %} name="point2">
+    <img src={% static "choosepic/img/unscored.png" %} name="point3">
+    <img src={% static "choosepic/img/unscored.png" %} name="point4">
+    <img src={% static "choosepic/img/unscored.png" %} name="point5">
+    <img src={% static "choosepic/img/unscored.png" %} name="point6">
+    <img src={% static "choosepic/img/unscored.png" %} name="point7">
+    <img src={% static "choosepic/img/unscored.png" %} name="point8">
+    <img src={% static "choosepic/img/unscored.png" %} name="point9">
+    <img src={% static "choosepic/img/unscored.png" %} name="point10">
+    <img src={% static "choosepic/img/unscored.png" %} name="point11">
+    <img src={% static "choosepic/img/unscored.png" %} name="point12">
+    <img src={% static "choosepic/img/unscored.png" %} name="point13">
+    <img src={% static "choosepic/img/unscored.png" %} name="point14">
+    <img src={% static "choosepic/img/unscored.png" %} name="point15">
+    <img src={% static "choosepic/img/unscored.png" %} name="point16">
+    <img src={% static "choosepic/img/unscored.png" %} name="point17">
+    <img src={% static "choosepic/img/unscored.png" %} name="point18">
+    <img src={% static "choosepic/img/unscored.png" %} name="point19">
 </div>
 </body>
 </html>
