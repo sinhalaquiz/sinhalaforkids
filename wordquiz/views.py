@@ -1,4 +1,5 @@
 import random
+import re
 from wordquiz.models import WordCategory
 from wordquiz.models import SinhalaWord
 from wordquiz.models import MediaObject
