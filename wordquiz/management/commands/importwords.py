@@ -13,7 +13,7 @@ def save_data(data):
 
 def save_from_file(filename):
     with open(filename, 'rb') as csvfile:
-        reader = csv.DictReader(csvfile)
+        reader = csv.DictReader(csvfile, delimiter='\t')
         for row in reader:
             save_data(row)
 
