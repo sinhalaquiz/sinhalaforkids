@@ -1,48 +1,16 @@
+{% extends "site-common.html" %}
 {% load staticfiles %}
-<html>
-    <head>
-        <style>
-            .container {
-                width: 80%;
-                margin: 30px auto;
-                overflow: hidden;
-            }
-            .galleryItem {
-                color: #797478;
-                font: 10px/1.5 Verdana, Helvetica, sans-serif;
-                float: left;
-                width: 28%;
-                margin:  2% 2% 50px 2%;
-                padding: 10px;
-                border: solid thin;
-                -webkit-border-radius: 10px;
-                -moz-border-radius: 10px;
-                border-radius: 10px;
-            }
-    
-            .galleryItem h3 {
-                text-transform: uppercase;
-            }
-    
-            .galleryItem img {
-                max-width: 100%;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Choose an activity</h1>
-            {% for app in apps %}
-            <div class="galleryItem">
-                {% static "" as baseUrl %}
-                <a href="/{{ app }}/"><img src="{{ baseUrl }}img/{{ app }}.png" alt=""></a>
-                <h3>{{ app}}</h3>
-            </div>
-            {% endfor %}
-        </div>
-    </body>
-</html>
+
+{% block body %}
+<div class="container">
+    <h1>Choose an activity</h1>
+    {% for app in apps %}
+    <div class="galleryItem">
+        {% static "" as baseUrl %}
+        <a href="/{{ app }}/"><img src="{{ baseUrl }}img/{{ app }}.png" alt=""></a>
+        <h3>{{ app}}</h3>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
 

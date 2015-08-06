@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static "css/site.css" %}" />
+		{% block script %}{% endblock %}
+    </head>
+    <body>
+		{% static "" as baseUrl %}
+		<a href="/"><img src="{{ baseUrl }}img/logo.png" alt=""></a>
+	{% block body %}{% endblock %}
+    </body>
+</html>
+
