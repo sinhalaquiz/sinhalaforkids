@@ -1,0 +1,39 @@
+body {
+    overflow: hidden;
+}
+canvas {
+    left:0px;
+    top:0px;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.gamecanvas {
+    position: absolute;
+}
+
+.centred {
+    position: relative;
+    margin: auto;
+}
+
+.gamediv {
+    width: 640px;
+    height: 264px;
+    background: url('../img/bg.png');
+}
+
+.cluediv {
+    width: 572px;
+    text-align: center;
+    font-size: 30px;
+    background: url('../img/wood.png');
+    color: yellow;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
