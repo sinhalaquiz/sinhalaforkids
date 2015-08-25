@@ -1,0 +1,23 @@
+{% load staticfiles %}
+{% static "" as baseUrl %}
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Boilerplate document</title>
+        <link rel="stylesheet" media="screen" href="{{ baseUrl }}treasure/css/canvases.css" %}></link>
+    </head>
+
+    <body onload="resetGame({boardElem : 'gameBoard', assets : '{{baseUrl}}treasure/'})">
+        <script src="{{baseUrl}}treasure/js/main.js"></script>
+        <div class="container">
+            <div class="gamediv centred" id='gameBoard'>
+                <canvas class="gamecanvas" id="mapLayer" style="z-index: 1;"></canvas>
+                <canvas class="gamecanvas" id="heroLayer" style="z-index: 2;"></canvas>
+            </div>
+            <div class="cluediv centred" id="clue">
+            </div>
+        </div>
+    </body>
+</html>
