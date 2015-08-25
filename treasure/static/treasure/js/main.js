@@ -11,7 +11,6 @@ var TILE_SIZE = 24 ;
 // * Enlarge the map, with more detail
 // * Integrate the site CSS
 // * Add scoreboard.
-// * Hero should stop walking on the same spot
 // * Solving the last clue should present cup with options to
 //   quit or replay
 // * Add loading indicator
@@ -141,10 +140,10 @@ function CharacterImage(imageSource, imagePreloadFn, layerContext)
     var northTiles = [4, 5];
     var eastTiles = [6, 7];
     var tileIndex = 0;
-    var direction = northTiles;
+    var direction = southTiles;
     var framesPerMove = 8;
     var framesLeft = framesPerMove;
-    var moving = true;
+    var moving = false;
     var ctx_ = layerContext;
 
     img.src = imageSource;
@@ -182,6 +181,14 @@ function CharacterImage(imageSource, imagePreloadFn, layerContext)
 
     this.faceEast = function() {
         direction = eastTiles;
+    };
+
+    this.stopMovement = function() {
+        moving = false;
+    };
+
+    this.startMovement = function() {
+        moving = true;
     };
 }
 
@@ -235,6 +242,7 @@ function Hero(gameMap, clues, image)
                     dx_ = -(dCol_ * TILE_SIZE);
                     dy_ = -(dRow_ * TILE_SIZE);
                 } else {
+                    img.stopMovement();
                     dRow_ = 0;
                     dCol_ = 0;
                 }
@@ -261,6 +269,7 @@ function Hero(gameMap, clues, image)
             case 38:
                 queuedAction = function() {
                     img.faceNorth();
+                    img.startMovement();
                     dRow_ = -1;
                     dCol_ = 0;
                 }
@@ -268,6 +277,7 @@ function Hero(gameMap, clues, image)
             case 40:
                 queuedAction = function() {
                     img.faceSouth();
+                    img.startMovement();
                     dRow_ = 1;
                     dCol_ = 0;
                 }
@@ -275,6 +285,7 @@ function Hero(gameMap, clues, image)
             case 37:
                 queuedAction = function() {
                     img.faceWest();
+                    img.startMovement();
                     dRow_ = 0;
                     dCol_ = -1;
                 }
@@ -282,20 +293,20 @@ function Hero(gameMap, clues, image)
             case 39:
                 queuedAction = function() {
                     img.faceEast();
+                    img.startMovement();
                     dRow_ = 0;
                     dCol_ = 1;
                 }
                 break;
             case 190:   // .
                 queuedAction = function() {
+                    img.stopMovement();
                     dRow_ = 0;
                     dCol_ = 0;
                 }
                 break;
             case 32:    // Space
             case 13:    // Enter
-                dRow_ = 0;
-                dCol_ = 0;
                 if (dx_ == 0 && dy_ == 0) {
                     clues_.checkClue(row_, col_);
                 }
