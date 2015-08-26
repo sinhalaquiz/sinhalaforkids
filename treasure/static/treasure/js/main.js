@@ -3,11 +3,7 @@
 var TILE_SIZE = 24 ;
 
 // TODO
-// * Inject the element names to startup function
-// * Inject clues/images, etc to startup function
 // * Shuffle clues
-// * Inject canvas names to startup function (search for all
-//   get element by name/id calls)
 // * Enlarge the map, with more detail
 // * Integrate the site CSS
 // * Add scoreboard.
@@ -307,7 +303,10 @@ function Hero(gameMap, clues, image)
                 break;
             case 32:    // Space
             case 13:    // Enter
-                if (dx_ == 0 && dy_ == 0) {
+                queuedAction = function() {
+                    img.stopMovement();
+                    dRow_ = 0;
+                    dCol_ = 0;
                     clues_.checkClue(row_, col_);
                 }
                 break;
@@ -328,50 +327,19 @@ function getChar(event) {
     }
 }
 
-function TreasureClues(imagePreloadFn, map, clueText)
+function TreasureClues(imagePreloadFn, map, clues, clueText)
 {
-    var images_ = [
-        {   // tiger
-            img : null, 
-            src : "http://drive.google.com/uc?export=view&id=0B7u1shV_Qm31aWdCNzBHbkItcm8",
-            clue : 'තැඹිළි ඇඟේ මගෙ කළු ඉරි ඇත්තේ'
-        },
-        {   // snake
-            img : null, 
-            src : "http://drive.google.com/uc?export=view&id=0ByUA_i3XjaSzQ1Y0VFdWVWRRekk",
-            clue : 'අත් පා නැති මා කඹයක් වගේ යි.'
-        },
-        {   // pig
-            img : null, 
-            src : "http://drive.google.com/uc?export=view&id=0B7u1shV_Qm31SjdKc3B0blNGdmM",
-            clue : 'Oink! Oink! I love the mud!!'
-        },
-        {   // tortoise
-            img : null, 
-            src : "http://drive.google.com/uc?export=view&id=0ByUA_i3XjaSzdkxmQWJ1LXcwRE0",
-            clue : 'I travel slowly with a shell on my back'
-        },
-        {   // butterfly
-            img : null, 
-            src : "http://drive.google.com/uc?export=view&id=0BwUXAWP3Z657dVlxM25GRTVMWXM",
-            clue : 'I have colourful wings and drink nectar from flowers'
-        },
-        {   // lion
-            img : null, 
-            src : "http://drive.google.com/uc?export=view&id=0B7u1shV_Qm31QTgwVGFHTkRpdDQ",
-            clue : 'I am the king of the jungle. Hear me roar!'
-        },
-    ];
-
+    var clues_ = clues;
     var currentClue_ = 0;
     var treasures_ = [];
     var locations_ = map.getTreasureItemLocations();
-    var maxTreasures = (locations_.length < images_.length) ? locations_.length : images_.length;
+    var maxTreasures = (locations_.length < clues_.length) ? locations_.length : clues_.length;
+
     for (var i=0; i<maxTreasures; i++) {
-        images_[i].img = imagePreloadFn(images_[i].src);
+        clues_[i].img = imagePreloadFn(clues_[i].src);
         treasures_.push({
             loc : locations_[i],
-            item: images_[i]
+            item: clues_[i]
 
         });
     }
@@ -399,10 +367,10 @@ function TreasureClues(imagePreloadFn, map, clueText)
                     && (row >= loc.row) && (row < loc.row + 3)) {
                         alert("Great!");
                         currentClue_++;
-                        if (currentClue_ < treasures_.length) {
-                            clueText.innerHTML=treasures_[currentClue_].item.clue;
-                        }
-                        // TODO possible end of game
+                if (currentClue_ < treasures_.length) {
+                    clueText.innerHTML=treasures_[currentClue_].item.clue;
+                }
+               // TODO possible end of game
             }
         }
     };
@@ -459,21 +427,25 @@ function ImagePreloader()
     };
 }
 
-function resetGame(params)
+function gameStart(params)
 {
     var preloader = new ImagePreloader();
 
     var gm = new GameMap();
-    var mapLayer = getLayerContext("mapLayer", gm);
-    var heroLayer = getLayerContext("heroLayer", gm);
-    var heroImage = new CharacterImage(params.assets + "img/sf2-characters.png", preloader.queuePreloadImage, heroLayer);
-    var clueText = document.getElementById("clue");
-    var clues = new TreasureClues(preloader.queuePreloadImage, gm, clueText);
-    var mapImage = new MapImage(params.assets+"img/sf2-map.png", preloader.queuePreloadImage, mapLayer, gm);
+    var mapLayer = getLayerContext(params.mapLayerElem, gm);
+    var heroLayer = getLayerContext(params.characterLayerElem, gm);
+    var heroImage = new CharacterImage(params.assets + "img/sf2-characters.png", 
+                                       preloader.queuePreloadImage, 
+                                       heroLayer);
+    var clueText = document.getElementById(params.clueTextElem);
+    var clues = new TreasureClues(preloader.queuePreloadImage, 
+                                  gm, params.clues, clueText);
+    var mapImage = new MapImage(params.assets + "img/sf2-map.png",
+                                preloader.queuePreloadImage,
+                                mapLayer, gm);
 
     preloader.start(function() {
         mapImage.render(document.getElementById(params.boardElem));
-        //renderMap(gm, mapLayer, document.getElementById(params.boardElem));
         clues.render(mapLayer);
 
         var hero = new Hero(gm, clues, heroImage);
@@ -483,13 +455,13 @@ function resetGame(params)
         }, false);
 
         function gameLoop()
-    {
-        var fps = 40;
-        setTimeout(function() {
-            window.requestAnimationFrame(gameLoop);
-            hero.onFrameUpdate();
-        }, 1000 / fps);
-    }
+        {
+            var fps = 40;
+            setTimeout(function() {
+                window.requestAnimationFrame(gameLoop);
+                hero.onFrameUpdate();
+            }, 1000 / fps);
+        }
 
         gameLoop();
     });
