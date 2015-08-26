@@ -3,7 +3,6 @@
 var TILE_SIZE = 24 ;
 
 // TODO
-// * Shuffle clues
 // * Enlarge the map, with more detail
 // * Integrate the site CSS
 // * Add scoreboard.
@@ -327,6 +326,17 @@ function getChar(event) {
     }
 }
 
+function shuffle(items)
+{
+    for (var i=0; i<items.length; i++) {
+        var swapWith = Math.floor(Math.random() * items.length);
+        var tmp = items[i];
+        items[i] = items[swapWith];
+        items[swapWith] = tmp;
+    }
+    return items;
+}
+
 function TreasureClues(imagePreloadFn, map, clues, clueText)
 {
     var clues_ = clues;
@@ -343,6 +353,7 @@ function TreasureClues(imagePreloadFn, map, clues, clueText)
 
         });
     }
+    treasures_ = shuffle(treasures_);
     clueText.innerHTML=treasures_[0].item.clue;
 
     return {
