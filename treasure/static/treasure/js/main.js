@@ -3,7 +3,6 @@
 var TILE_SIZE = 24 ;
 
 // TODO
-// * Enlarge the map, with more detail
 // * Integrate the site CSS
 // * Add scoreboard.
 // * Solving the last clue should present cup with options to
@@ -17,23 +16,23 @@ var TILE_SIZE = 24 ;
 function GameMap()
 {
     var map_ = [
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,2,3,4,0,0,0,2,3,4,9,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,2,3,4,0,0,0,2,3,4,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,2,3,4,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        '111111111111111111111111', 
+        '1........23334.........1', 
+        '1.234...234*...........1', 
+        '1.234...234....EF234...1', 
+        '1.......234...EF..2334.1', 
+        '1...*........EF...*....1', 
+        '1567....EF..EF.......241', 
+        '189A...EF..EF..234...241', 
+        '1BCCCD..EF...233334....1', 
+        '1.........*..233333334.1', 
+        '1.233334.....57..*..24.1', 
+        '1.233334.....8A........1', 
+        '1.*..234..566CD.....24.1', 
+        '1....234.599D...23334..1', 
+        '1........BCD...23334...1', 
+        '1....234...............1', 
+        '111111111111111111111111'
     ];
 
     // Public interface
@@ -53,8 +52,8 @@ function GameMap()
             }
 
             // 9 is an treasure clue. So make that also a none
-            if (row[colNum] == 9) {
-                return 0;
+            if (row[colNum] == '*') {
+                return '.';
             }
             return row[colNum];
         },
@@ -67,14 +66,14 @@ function GameMap()
             if ((colNum < 0) || (colNum >= row.length)) {
                 return false;
             }
-            return this.getItemAt(rowNum, colNum) == 0;
+            return this.getItemAt(rowNum, colNum) == '.';
         },
         getTreasureItemLocations : function() {
             var locations = [];
             for (var r=0; r<map_.length; r++) {
                 var row=map_[r];
                 for (var c=0; c<row.length; c++) {
-                    if (row[c] == 9) {
+                    if (row[c] == '*') {
                         locations.push({ column : c, row : r});
                     }
                 }
@@ -93,7 +92,7 @@ function MapImage(imageSource, imagePreloadFn, layerContext, map)
     function drawTile(row, col)
     {
         var item = map_.getItemAt(row, col);
-        if (!item) {
+        if (item == '.') {
             return;
         }
 
@@ -105,6 +104,18 @@ function MapImage(imageSource, imagePreloadFn, layerContext, map)
             '2' : {x:48, y:24}, // trees-left
             '3' : {x:0,  y:24}, // trees-mid
             '4' : {x:24, y:24}, // trees-right
+            '5' : {x:0,  y:48}, // pond-left-top
+            '6' : {x:24, y:48}, // pond-top
+            '7' : {x:48, y:48}, // pond-right-top
+            '8' : {x:0,  y:96}, // pond-left
+            '9' : {x:24, y:96}, // pond-mid
+            'A' : {x:48, y:96}, // pond-right
+            'B' : {x:0,  y:72}, // pond-left-bottom
+            'C' : {x:24, y:72}, // pond-bottom
+            'D' : {x:48, y:72}, // pond-right-bottom
+            'E' : {x:48, y:0}, // hills-left
+            'F' : {x:72, y:0}, // hills-right
+            'G' : {x:72, y:24}, // lone-tree
         };
 
         var tile_x = tileItems[item].x;
