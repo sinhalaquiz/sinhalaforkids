@@ -20,6 +20,12 @@ canvas {
     margin: auto;
 }
 
+progress[value] {
+    margin: auto;
+    width: 100%;
+    height: 20px;
+}
+
 .gamediv {
     width: 640px;
     height: 264px;

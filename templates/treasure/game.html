@@ -5,12 +5,14 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Boilerplate document</title>
+        <title>Treasure Hunt</title>
+        <link rel="stylesheet" href="{% static "css/alertify.css" %}" />
         <link rel="stylesheet" media="screen" href="{{ baseUrl }}treasure/css/canvases.css" %}></link>
     </head>
 
     <body onload="onLoad()">
         <script src="{{baseUrl}}treasure/js/main.js"></script>
+        <script src="{{baseUrl}}js/alertify.js"></script>
         <script>
             function onLoad()
             {
@@ -20,6 +22,7 @@
                     mapLayerElem : 'mapLayer',
                     characterLayerElem : 'heroLayer',
                     clueTextElem : 'clue',
+                    progressElem : 'progress',
                     clues : [
                     {   // tiger
                         img : null, 
@@ -58,6 +61,7 @@
         </script>
         <div class="container">
             <div class="gamediv centred" id='gameBoard'>
+                <progress id="progress" max="100" value="0"> </progress>
                 <canvas class="gamecanvas" id="mapLayer" style="z-index: 1;"></canvas>
                 <canvas class="gamecanvas" id="heroLayer" style="z-index: 2;"></canvas>
             </div>

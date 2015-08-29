@@ -365,10 +365,10 @@ function TreasureClues(imagePreloadFn, map, clues, clueText)
         });
     }
     treasures_ = shuffle(treasures_);
-    clueText.innerHTML=treasures_[0].item.clue;
 
     return {
         render : function (layerCtx) {
+            clueText.innerHTML=treasures_[0].item.clue;
             for (var i=0; i<treasures_.length; i++) {
                 var x = treasures_[i].loc.column * TILE_SIZE;
                 var y = treasures_[i].loc.row * TILE_SIZE;
@@ -387,12 +387,14 @@ function TreasureClues(imagePreloadFn, map, clues, clueText)
             var loc = treasures_[currentClue_].loc;
             if ((column >= loc.column) && (column < (loc.column + 3))
                     && (row >= loc.row) && (row < loc.row + 3)) {
-                        alert("Great!");
+                        alertify.alert("Great!");
                         currentClue_++;
                 if (currentClue_ < treasures_.length) {
                     clueText.innerHTML=treasures_[currentClue_].item.clue;
                 }
                // TODO possible end of game
+            } else {
+                alertify.error("Wrong. Try again");
             }
         }
     };
@@ -411,7 +413,7 @@ function getLayerContext(canvasName, gameMap)
     return canvas.getContext("2d");
 }
 
-function ImagePreloader()
+function ImagePreloader(progress)
 {
     var images_=[];
     var loaded_ = 0;
@@ -420,6 +422,7 @@ function ImagePreloader()
     function onload()
     {
         loaded_++;
+        progress.value = loaded_;
         if (loaded_ >= images_.length) {
             if (doneCallback_) {
                 doneCallback_();
@@ -434,6 +437,8 @@ function ImagePreloader()
         queuePreloadImage : function(imageSource) {
             var item = { img : new Image(), src : imageSource };
             images_.push(item);
+            progress.max = images_.length;
+
             return item.img;
         },
         // Begin the process of preloading images. Invoke callback
@@ -451,7 +456,7 @@ function ImagePreloader()
 
 function gameStart(params)
 {
-    var preloader = new ImagePreloader();
+    var preloader = new ImagePreloader(document.getElementById(params.progressElem));
 
     var gm = new GameMap();
     var mapLayer = getLayerContext(params.mapLayerElem, gm);
