@@ -348,7 +348,7 @@ function shuffle(items)
     return items;
 }
 
-function TreasureClues(imagePreloadFn, map, clues, clueText)
+function TreasureClues(imagePreloadFn, map, clues, clueText, keyListener)
 {
     var clues_ = clues;
     var currentClue_ = 0;
@@ -387,7 +387,10 @@ function TreasureClues(imagePreloadFn, map, clues, clueText)
             var loc = treasures_[currentClue_].loc;
             if ((column >= loc.column) && (column < (loc.column + 3))
                     && (row >= loc.row) && (row < loc.row + 3)) {
-                        alertify.alert("Great!");
+                        keyListener.disable();
+                        alertify.alert("Great!", function() {
+                            keyListener.enable();
+                        });
                         currentClue_++;
                 if (currentClue_ < treasures_.length) {
                     clueText.innerHTML=treasures_[currentClue_].item.clue;
@@ -454,6 +457,36 @@ function ImagePreloader(progress)
     };
 }
 
+function KeyListener()
+{
+    var observer_ = null;
+    var eventEnabled = false;
+
+    function handler(event) {
+        if (observer_) {
+            if (eventEnabled) {
+                observer_.onKey(event.keyCode);
+            }
+        }
+    }
+
+    document.addEventListener('keydown', handler, false);
+
+    return {
+        registerObserver(observer) {
+            observer_ = observer;
+        },
+
+        enable : function() {
+            eventEnabled = true;
+        },
+
+        disable : function() {
+            eventEnabled = false;
+        }
+    };
+}
+
 function gameStart(params)
 {
     var preloader = new ImagePreloader(document.getElementById(params.progressElem));
@@ -462,34 +495,33 @@ function gameStart(params)
     var mapLayer = getLayerContext(params.mapLayerElem, gm);
     var heroLayer = getLayerContext(params.characterLayerElem, gm);
     var heroImage = new CharacterImage(params.assets + "img/sf2-characters.png", 
-                                       preloader.queuePreloadImage, 
-                                       heroLayer);
+            preloader.queuePreloadImage, 
+            heroLayer);
     var clueText = document.getElementById(params.clueTextElem);
-    var clues = new TreasureClues(preloader.queuePreloadImage, 
-                                  gm, params.clues, clueText);
     var mapImage = new MapImage(params.assets + "img/sf2-map.png",
-                                preloader.queuePreloadImage,
-                                mapLayer, gm);
+            preloader.queuePreloadImage,
+            mapLayer, gm);
+
+    var keyListener = new KeyListener();
+    var clues = new TreasureClues(preloader.queuePreloadImage, 
+            gm, params.clues, clueText, keyListener);
 
     preloader.start(function() {
         mapImage.render(document.getElementById(params.boardElem));
         clues.render(mapLayer);
-
         var hero = new Hero(gm, clues, heroImage);
 
-        document.addEventListener('keydown', function(event) {
-            hero.onKey(event.keyCode);
-        }, false);
-
+        keyListener.registerObserver(hero);
+        keyListener.enable();
         function gameLoop()
-        {
-            var fps = 40;
-            setTimeout(function() {
-                window.requestAnimationFrame(gameLoop);
-                hero.onFrameUpdate();
-            }, 1000 / fps);
-        }
+    {
+        var fps = 40;
+        setTimeout(function() {
+            window.requestAnimationFrame(gameLoop);
+            hero.onFrameUpdate();
+        }, 1000 / fps);
+    }
 
-        gameLoop();
+    gameLoop();
     });
 }
