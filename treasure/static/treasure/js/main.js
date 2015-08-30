@@ -348,6 +348,18 @@ function shuffle(items)
     return items;
 }
 
+function gameEndDialog()
+{
+    alertify .confirm('Play again?',
+        function(sel) {
+            if (sel) {
+                location.reload();
+            } else {
+                location.href = '..';
+            }
+        });
+}
+
 function TreasureClues(imagePreloadFn, map, clues, clueText, keyListener)
 {
     var clues_ = clues;
@@ -390,13 +402,15 @@ function TreasureClues(imagePreloadFn, map, clues, clueText, keyListener)
 
                 keyListener.disable();
                 alertify.alert("Great!", function() {
-                    keyListener.enable(1);
                     currentClue_++;
                     if (currentClue_ < treasures_.length) {
-                        clueText.innerHTML=treasures_[currentClue_].item.clue;
+                        clueText.innerHTML = treasures_[currentClue_].item.clue;
+                        keyListener.enable(1);
+                    } else {
+                        clueText.innerHTML = 'Congratulations!!!';
+                        gameEndDialog();
                     }
                 });
-                // TODO possible end of game
             } else {
                 alertify.error("Wrong. Try again");
             }
