@@ -386,16 +386,17 @@ function TreasureClues(imagePreloadFn, map, clues, clueText, keyListener)
 
             var loc = treasures_[currentClue_].loc;
             if ((column >= loc.column) && (column < (loc.column + 3))
-                    && (row >= loc.row) && (row < loc.row + 3)) {
-                        keyListener.disable();
-                        alertify.alert("Great!", function() {
-                            keyListener.enable();
-                        });
-                        currentClue_++;
-                if (currentClue_ < treasures_.length) {
-                    clueText.innerHTML=treasures_[currentClue_].item.clue;
-                }
-               // TODO possible end of game
+                && (row >= loc.row) && (row < loc.row + 3)) {
+
+                keyListener.disable();
+                alertify.alert("Great!", function() {
+                    keyListener.enable(1);
+                    currentClue_++;
+                    if (currentClue_ < treasures_.length) {
+                        clueText.innerHTML=treasures_[currentClue_].item.clue;
+                    }
+                });
+                // TODO possible end of game
             } else {
                 alertify.error("Wrong. Try again");
             }
@@ -460,29 +461,36 @@ function ImagePreloader(progress)
 function KeyListener()
 {
     var observer_ = null;
-    var eventEnabled = false;
+    var eventEnabled_ = false;
+    var countDown_ = 0;
 
     function handler(event) {
         if (observer_) {
-            if (eventEnabled) {
+            if (eventEnabled_) {
+                if (countDown_) {
+                    if(countDown_--) {
+                        return;
+                    }
+                }
                 observer_.onKey(event.keyCode);
             }
         }
     }
 
-    document.addEventListener('keydown', handler, false);
+    document.addEventListener('keyup', handler, false);
 
     return {
         registerObserver(observer) {
             observer_ = observer;
         },
 
-        enable : function() {
-            eventEnabled = true;
+        enable : function(countDown) {
+            eventEnabled_ = true;
+            countDown_ = countDown;
         },
 
         disable : function() {
-            eventEnabled = false;
+            eventEnabled_ = false;
         }
     };
 }
