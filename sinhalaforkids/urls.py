@@ -8,7 +8,7 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['apps'] = ['choosepic', 'wordquiz']
+        context['apps'] = ['choosepic', 'wordquiz', 'treasure']
         return context
 
 urlpatterns = patterns('',

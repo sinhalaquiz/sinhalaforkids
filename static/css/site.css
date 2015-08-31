@@ -2,40 +2,46 @@ body {
     background-color: Turquoise;
 }
 
+@font-face { 
+    font-family: 'BhashitaComplex';
+    src: '{% static 'fonts/LBhashitaComplex.ttf' %}';
+} 
+
+
 .container {
-	width: 80%;
-	margin: 30px auto;
-	overflow: hidden;
-	background-color: white;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: BlueViolet solid thick;
+    width: 80%;
+    margin: 30px auto;
+    overflow: hidden;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: BlueViolet solid thick;
 }
 
 .container h1 {
-	color: #797478;
-	font: 40px/1.5 Verdana, Helvetica, sans-serif;
-	font-variant: small-caps;
-	padding: 10px;
+    color: #797478;
+    font: 40px/1.5 Verdana, Helvetica, sans-serif;
+    font-variant: small-caps;
+    padding: 10px;
 }
 
 .galleryItem {
-	color: #797478;
-	font: 10px/1.5 Verdana, Helvetica, sans-serif;
-	float: left;
-	width: 28%;
-	margin:  2% 2% 50px 2%;
+    color: #797478;
+    font: 10px/1.5 Verdana, Helvetica, sans-serif;
+    float: left;
+    width: 28%;
+    margin:  2% 2% 50px 2%;
 }
 
 .galleryItem h3 {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .galleryItem img {
-	max-width: 100%;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+    max-width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 

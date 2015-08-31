@@ -9,6 +9,7 @@ canvas {
 .container {
     width: 80%;
     margin: auto;
+    text-align: center;
 }
 
 .gamecanvas {
@@ -33,6 +34,7 @@ progress[value] {
 }
 
 .cluediv {
+    font-family: BhashitaComplex;
     width: 572px;
     text-align: center;
     font-size: 30px;
@@ -41,5 +43,10 @@ progress[value] {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+}
+
+.instructions {
+    text-align: center;
+    font-size: 20px;
 }
 
