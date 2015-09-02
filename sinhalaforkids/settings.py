@@ -30,6 +30,8 @@ DATABASES = {
 ALLOWED_HOSTS = [
     '127.0.0.1', 
     'sinhalaforkids.homenet.org',
+    'www.sinhalaforkids.com',
+    'www.sinhalaforkids.com.',
     'sinhalaforkids.com',
     'sinhalaforkids.com.',
 ]
