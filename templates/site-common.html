@@ -1,5 +1,8 @@
 {% load staticfiles %}
 <html>
+	<title>
+		Sinhala For Kids
+	</title>
     <head>
         <link rel="stylesheet" href="{% static "css/site.css" %}" />
 		{% block script %}{% endblock %}
@@ -9,5 +12,11 @@
 		<a href="/"><img src="{{ baseUrl }}img/logo.png" alt=""></a>
 	{% block body %}{% endblock %}
     </body>
+	<footer>
+		Sinhala for kids
+		<a href="/about.html"><img src="{{ baseUrl }}img/Actions-help-about-icon.png" alt=""></a>
+		<a href="/feedback.html"><img src="{{ baseUrl }}img/Actions-mail-flag-icon.png" alt=""></a>
+		<a href="/"><img src="{{ baseUrl }}img/Actions-go-home-icon.png" alt=""></a>
+	</footer>
 </html>
 

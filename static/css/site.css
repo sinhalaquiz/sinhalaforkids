@@ -2,6 +2,18 @@ body {
     background-color: Turquoise;
 }
 
+footer {
+    background-color: MediumTurquoise;
+    font: 15px/1.5 "Comic Sans MS", cursive, sans-serif;
+	width: 99%;
+    bottom: 0;
+    position: fixed;
+}
+
+footer img {
+	float: right;
+}
+
 @font-face { 
     font-family: 'BhashitaComplex';
     src: '{% static 'fonts/LBhashitaComplex.ttf' %}';
@@ -24,6 +36,12 @@ body {
     font: 40px/1.5 Verdana, Helvetica, sans-serif;
     font-variant: small-caps;
     padding: 10px;
+}
+
+.container p,li{
+    color: MediumPurple;
+    font: 20px/1.5 "Comic Sans MS", cursive, sans-serif;
+    padding: 2px 25px;
 }
 
 .galleryItem {
