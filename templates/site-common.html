@@ -7,16 +7,15 @@
         <link rel="stylesheet" href="{% static "css/site.css" %}" />
 		{% block script %}{% endblock %}
     </head>
-    <body>
-		{% static "" as baseUrl %}
+    <header>
+        {% static "" as baseUrl %}
 		<a href="/"><img src="{{ baseUrl }}img/logo.png" alt=""></a>
+		<a href="/about.html"><img class="navigation" src="{{ baseUrl }}img/Actions-help-about-icon.png" alt=""></a>
+		<a href="/contact.html"><img class="navigation" src="{{ baseUrl }}img/Actions-mail-flag-icon.png" alt=""></a>
+		<a href="/"><img class="navigation" src="{{ baseUrl }}img/Actions-go-home-icon.png" alt=""></a>
+        </header>
+    <body>
 	{% block body %}{% endblock %}
     </body>
-	<footer>
-		Sinhala for kids
-		<a href="/about.html"><img src="{{ baseUrl }}img/Actions-help-about-icon.png" alt=""></a>
-		<a href="/contact.html"><img src="{{ baseUrl }}img/Actions-mail-flag-icon.png" alt=""></a>
-		<a href="/"><img src="{{ baseUrl }}img/Actions-go-home-icon.png" alt=""></a>
-	</footer>
 </html>
 

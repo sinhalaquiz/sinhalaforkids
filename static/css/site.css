@@ -2,23 +2,20 @@ body {
     background-color: Turquoise;
 }
 
-footer {
+header {
     background-color: DarkTurquoise;
     font: 15px/1.5 "Comic Sans MS", cursive, sans-serif;
-	width: 99%;
     bottom: 0;
-    position: fixed;
 }
 
-footer img {
-	float: right;
+.navigation {
+    float: right;
 }
 
 @font-face { 
     font-family: 'BhashitaComplex';
     src: '{% static 'fonts/LBhashitaComplex.ttf' %}';
 } 
-
 
 .container {
     width: 80%;
