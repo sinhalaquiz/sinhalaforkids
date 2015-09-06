@@ -1,18 +1,20 @@
 {% load staticfiles %}
 <html>
-	<title>
-		Sinhala For Kids
-	</title>
     <head>
+        <title>
+            {% block title %}{% endblock %}
+        </title>
         <link rel="stylesheet" href="{% static "css/site.css" %}" />
-		{% block script %}{% endblock %}
+        <meta name="description=" content={% block description %}{% endblock %}>
+        {% block script %}{% endblock %}
     </head>
     <header>
         {% static "" as baseUrl %}
-		<a href="/"><img src="{{ baseUrl }}img/logo.png" alt=""></a>
-		<a href="/about.html"><img class="navigation" src="{{ baseUrl }}img/Actions-help-about-icon.png" alt=""></a>
-		<a href="/contact.html"><img class="navigation" src="{{ baseUrl }}img/Actions-mail-flag-icon.png" alt=""></a>
-		<a href="/"><img class="navigation" src="{{ baseUrl }}img/Actions-go-home-icon.png" alt=""></a>
+	    <a href="/"><img src="{{ baseUrl }}img/logo.png" alt="Sinhala for kids"></a>
+	    <a href="/about.html"><img class="navigation" src="{{ baseUrl }}img/Actions-help-about-icon.png" alt="About"></a>
+	    <a href="/contact.html"><img class="navigation" src="{{ baseUrl }}img/Actions-mail-flag-icon.png" alt="Contact"></a>
+	    <a href="/"><img class="navigation" src="{{ baseUrl }}img/Actions-go-home-icon.png" alt="Home"></a>
+	    {% block header %}{% endblock %}
         </header>
     <body>
 	{% block body %}{% endblock %}
