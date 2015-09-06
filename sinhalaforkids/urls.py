@@ -12,11 +12,12 @@ class HomePageView(TemplateView):
         return context
 
 urlpatterns = patterns('',
-        url(r'^$', HomePageView.as_view()),
-		url(r'^about', TemplateView.as_view(template_name='about.html')),
-		url(r'^contact', TemplateView.as_view(template_name='contact.html')),
-        url(r'^wordquiz/', include('wordquiz.urls')),
-        url(r'^choosepic/', include('choosepic.urls')),
-        url(r'^treasure/', include('treasure.urls')),
-        url(r'^admin/', include(admin.site.urls)),
-        )
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    url(r'^$', HomePageView.as_view()),
+    url(r'^about', TemplateView.as_view(template_name='about.html')),
+    url(r'^contact', TemplateView.as_view(template_name='contact.html')),
+    url(r'^wordquiz/', include('wordquiz.urls')),
+    url(r'^choosepic/', include('choosepic.urls')),
+    url(r'^treasure/', include('treasure.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+)
