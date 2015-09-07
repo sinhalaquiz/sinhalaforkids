@@ -15,8 +15,9 @@ Sinhala For Kids
     {% for app in apps %}
     <div class="galleryItem">
         {% static "" as baseUrl %}
-        <a href="/{{ app }}/"><img src="{{ baseUrl }}img/{{ app }}.png" alt=""></a>
-        <h3>{{ app}}</h3>
+        <a href="/{{app.url}}/"><img src="{{baseUrl}}img/{{app.img}}" alt="{{app.name}}"></a>
+        <h3>{{app.name}}</h3>
+        <p>{{app.desc}}</p>
     </div>
     {% endfor %}
 </div>
