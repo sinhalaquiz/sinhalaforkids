@@ -1,79 +1,50 @@
+{% extends "site-common.html" %}
 {% load staticfiles %}
-<html>
-    <head>
-        <link rel="stylesheet" href="{% static "css/alertify.css" %}" />
-        <script src="{% static "js/alertify.js" %}"></script>
-        <meta name="viewport" content="width=device-width">
-        <script>
-            function provideFeedback(on_ok)
-            {
-                var expect='{{answer}}';
-                var choice = document.querySelector('input[name = "choice"]:checked').value;
-                if (choice === expect)
-                {
-                    alertify.alert("Well done!", on_ok);
-                }
-                else
-                {
-                    alertify.alert("The answer is " + expect, on_ok);
-                }
-            }
-        </script>
-        <style>
-            @font-face { 
-                font-family: 'BhashitaComplex';
-                src: '{% static 'fonts/LBhashitaComplex.ttf' %}';
-            } 
 
-            .container {
-                width: 80%;
-                margin: 30px auto;
-                overflow: hidden;
-            }
+{% block title %} Word Quiz ({{cat}}) {% endblock %}
 
-            .question {
-                font: 40px/1.5 Verdana, Helvetica, sans-serif;
-                color: #797478;
-                width: 50%;
-                margin:  2% 2% 50px 2%; 
-            }
+{% block description %} Choose the Sinhala word using the clue {% endblock %}
 
-            .question img {
-                max-width: 100%;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-            }
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static "css/alertify.css" %}" />
+<link rel="stylesheet" href="{% static "/static/wordquiz/css/question.css" %}" />
+{% endblock %}
 
-            .options {
-                font-family: BhashitaComplex;
-                font-size: 30px;
-                width: 50%;
-                margin:  2% 2% 50px 2%; 
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="question">
-                {% block question %}{% endblock %}
-            </div>
+{% block script %}
+function provideFeedback(on_ok)
+{
+    var expect='{{answer}}';
+    var choice = document.querySelector('input[name = "choice"]:checked').value;
+    if (choice === expect)
+    {
+        alertify.alert("Well done!", on_ok);
+    }
+    else
+    {
+        alertify.alert("The answer is " + expect, on_ok);
+    }
+}
+{% endblock %}
 
-            <div class="options"> 
-                <form action="/wordquiz/{{ cat }}/{{ idx }}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden", name="queue", value="{{queue}}">
-                    <input type="hidden", name="cat", value="{{cat}}">
-                    <input type="hidden", name="score", value="{{score}}">
-                    {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
-                    <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
-                    {% endfor %}
-                    <button type="button" onclick="provideFeedback(function() {
-                        submit();
-                        })">OK</button>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
+{% block body %}
+<div class="container">
+    <progress max="{{queue | length}}" value="{{ idx }}"> </progress>
+    <div class="question">
+        {% block question %}{% endblock %}
+    </div>
+
+    <div class="options"> 
+        <form action="/wordquiz/{{ cat }}/{{ idx }}" method="post">
+            {% csrf_token %}
+            <input type="hidden", name="queue", value="{{queue}}">
+            <input type="hidden", name="cat", value="{{cat}}">
+            <input type="hidden", name="score", value="{{score}}">
+            {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
+            <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
+            {% endfor %}
+            <button type="button" onclick="provideFeedback(function() { submit(); })">OK</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
 

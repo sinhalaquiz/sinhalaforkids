@@ -5,8 +5,10 @@
             {% block title %}{% endblock %}
         </title>
         <link rel="stylesheet" href="{% static "css/site.css" %}" />
+        {%block stylesheets %}{% endblock %}
         <meta name="description=" content={% block description %}{% endblock %}>
-        {% block script %}{% endblock %}
+        <script src="{% static "js/alertify.js" %}"></script>
+        <script>{% block script %}{% endblock %}</script>
     </head>
     <header>
         {% static "" as baseUrl %}

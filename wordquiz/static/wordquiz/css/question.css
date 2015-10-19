@@ -1,0 +1,25 @@
+.question {
+    font: 40px/1.5 Verdana, Helvetica, sans-serif;
+    color: #797478;
+    width: 50%;
+    margin:  2% 40% 50px 40%; 
+}
+
+.question img {
+    max-width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.options {
+    font-family: BhashitaComplex;
+    font-size: 30px;
+    width: 50%;
+    margin:  2% 40% 50px 40%; 
+}
+
+progress[value] {
+    float: right;
+    margin:  2% 5% 50px 5%; 
+}
