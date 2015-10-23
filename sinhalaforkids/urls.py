@@ -8,25 +8,49 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
+        context['title'] = 'Sinhala for kids'
+        context['desc'] = 'Sinhala for kids is a site dedicated to children ' \
+                'learning Sinhala as a second language. Its primary ' \
+                'goal is to promote skills in reading and comprehension'
+        context['heading'] = 'Choose your class'
         context['apps'] = [
             { 
-                'url' : 'wordquiz',
-                'name' : 'Word Quiz',     
-                'img' : 'wordquiz.png', 
-                'desc' : 'Learn the meaning and sound of words through a quiz' 
+                'url' : 'alphabet',
+                'name' : 'Alphabet',     
+                'img' : 'alphabet.png', 
+                'desc' : 'Learn the recognise the shapes and sounds of the Sinhala alphabet' 
             },
             { 
-                'url' : 'choosepic',
-                'name' : 'Pick the pic',  
-                'img' : 'choosepic.png', 
-                'desc' : 'Choose the picture that matches a given word' 
+                'url' : 'words',
+                'name' : 'Learn words',  
+                'img' : 'words.png', 
+                'desc' : 'Build your vocabulary through games and quizes' 
             },
             { 
-                'url' : 'treasure',
-                'name' : 'Treasure Hunt', 
-                'img' : 'treasure.png', 
-                'desc' : 'Follow the picture trail using the given clues' 
+                'url' : 'sentences',
+                'name' : 'Read sentences', 
+                'img' : 'sentences.png', 
+                'desc' : 'Learn to read and understand senteces' 
             },
+        ]
+
+        return context
+
+class AlphabetPageView(TemplateView):
+    template_name="index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AlphabetPageView, self).get_context_data(**kwargs)
+        context['title'] = 'Lessons for the Sinhala alphabet'
+        context['desc'] = 'Learn the recognise the shapes and sounds of the ' \
+            'Sinhala alphabet'
+        context['heading'] = 'Choose your lesson'
+        context['apps'] = [
+            { 
+                'url' : 'alphalesson/{0}'.format(i),
+                'name' : 'Lesson {0}'.format(i),     
+                'img' : 'alphabet-{0}.png'.format(i), 
+            } for i in range(1, 11)
         ]
 
         return context
@@ -34,8 +58,11 @@ class HomePageView(TemplateView):
 urlpatterns = patterns('',
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     url(r'^$', HomePageView.as_view()),
+    url(r'^alphabet', AlphabetPageView.as_view()),
     url(r'^about', TemplateView.as_view(template_name='about.html')),
     url(r'^contact', TemplateView.as_view(template_name='contact.html')),
+    url(r'^words', TemplateView.as_view(template_name='words.html')),
+    url(r'^sentences', TemplateView.as_view(template_name='sentences.html')),
     url(r'^wordquiz/', include('wordquiz.urls')),
     url(r'^choosepic/', include('choosepic.urls')),
     url(r'^treasure/', include('treasure.urls')),

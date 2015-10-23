@@ -2,16 +2,16 @@
 {% load staticfiles %}
 
 {% block title %}
-Sinhala For Kids
+{{title}}
 {% endblock %}
 
 {% block description %}
-"Sinhala for kids is a site dedicated to children learning Sinhala as a second language. Its primary goal is to promote skills in reading and comprehension."
+{{desc}}
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Choose an activity</h1>
+    <h1>{{heading}}</h1>
     {% for app in apps %}
     <div class="galleryItem">
         {% static "" as baseUrl %}
