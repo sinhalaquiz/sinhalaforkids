@@ -41,6 +41,13 @@ header {
     padding: 2px 25px;
 }
 
+.container embed {
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
 .galleryItem {
     color: #797478;
     font: 10px/1.5 Verdana, Helvetica, sans-serif;
