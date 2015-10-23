@@ -45,7 +45,7 @@ class AlphabetPageView(TemplateView):
         context['desc'] = 'Learn the recognise the shapes and sounds of the ' \
             'Sinhala alphabet'
         context['heading'] = 'Choose your lesson'
-        context['url'] = 'http://validator.w3.org/'
+        context['url'] = '/app/alphabet'
 
         return context
 
@@ -104,5 +104,6 @@ urlpatterns = patterns('',
         url(r'^wordquiz/', include('wordquiz.urls')),
         url(r'^choosepic/', include('choosepic.urls')),
         url(r'^treasure/', include('treasure.urls')),
+        url(r'^app/alphabet/', include('alphabet.urls')),
         url(r'^admin/', include(admin.site.urls)),
         )
