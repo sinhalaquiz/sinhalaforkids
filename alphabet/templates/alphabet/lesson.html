@@ -1,0 +1,69 @@
+{% load staticfiles %}
+{% static "alphabet" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Sinhala alphabet lessons</title>
+        <link rel="stylesheet" href="{{baseUrl}}/css/alphabet.css"></link>
+    </head>
+    <body onload="onLoad()">
+        <script>
+            "use strict";
+            var letters = [{% for l in letters %}'{{l}}',{% endfor %}];
+            var nextLetter = 0;
+
+            function play(id) {
+                if (id >= letters.length) {
+                    return;
+                }
+                var audio = document.getElementById('audio' + id);
+                audio.play();
+            }
+
+            function hideElement(id) {
+                var elem = document.getElementById(id);
+                elem.style.display = 'none';
+            }
+
+            function showElement(id) {
+                var elem = document.getElementById(id);
+                elem.style.display = 'block';
+            }
+
+            function updateLetter(id)
+            {
+                var elem = document.getElementById("bigLetter");
+                elem.innerText = letters[id];
+            }
+
+            function onClickLetter(id)
+            {
+                play(nextLetter);
+                showElement('Next');
+            }
+
+            function onClickNext() {
+                nextLetter++;
+                if (nextLetter == letters.length) {
+                    window.location.href = "../review/0";
+                    return;
+                }
+                updateLetter(nextLetter);
+                hideElement('Next');
+            }
+
+            function onLoad()
+            {
+                nextLetter = 0;
+                updateLetter(0);
+            }
+        </script>
+        <h1>Click the letter to hear the sound</h1>
+        <a href="#" onmousedown="onClickLetter()" class="flashCard" id="bigLetter"> </a>
+        <a href="#" onmousedown="onClickNext()" style="display: none" class="stdButton" id="Next">Next</a>
+        {% for l in letters %}
+        <audio id="audio{{forloop.counter0}}" src="{{baseUrl}}/img/{{forloop.counter}}.wav" ></audio>
+        {% endfor %}
+    </body>
+</html>

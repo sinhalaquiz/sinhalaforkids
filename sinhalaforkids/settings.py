@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'wordquiz',
     'choosepic',
     'treasure',
+    'alphabet',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

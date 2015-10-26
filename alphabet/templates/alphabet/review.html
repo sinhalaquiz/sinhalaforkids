@@ -1,0 +1,73 @@
+{% load staticfiles %}
+{% static "alphabet" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Sinhala alphabet lessons</title>
+        <link rel="stylesheet" href="{{baseUrl}}/css/alphabet.css"></link>
+    </head>
+    <body>
+        <script>
+            var reviewIter = 0;
+            var letters=[{% for l in letters %}'{{l}}',{% endfor %}];
+            function play() {
+                if (reviewIter >= letters.length) {
+                    return;
+                }
+                var audio = document.getElementById('audio' + reviewIter);
+                audio.play();
+            }
+            function hideElement(id) {
+                var elem = document.getElementById(id);
+                elem.style.display = 'none';
+            }
+            function showElement(id) {
+                var elem = document.getElementById(id);
+                elem.style.display = 'block';
+            }
+            function showNext() {
+                var choice = document.querySelector('input[name = "choice"]:checked');
+                elem = document.getElementById(choice.id);
+                elem.checked = false;
+
+                reviewIter++;
+                progress = document.getElementById('Progress');
+                progress.value = reviewIter;
+
+                if (reviewIter == letters.length) {
+                    // Review complete
+                    hideElement('Check')
+                    showElement('Done')
+                    return;
+                }
+            }
+            function checkAnswer() {
+                var choice = document.querySelector('input[name = "choice"]:checked').value;
+                var expect = letters[reviewIter];
+                if (choice === expect) {
+                    alert("Well done!");
+                    showNext();
+                } else {
+                    alert("Try again");
+                }
+            }
+        </script>
+        <h1>Select the letter that matches the sound</h1>
+        <input type="image" src="{{baseUrl}}/img/play.png" alt="Play" value="PLAY" onclick="play()">
+        <progress id="Progress" max="{{letters | length}}" value="0"> </progress>
+        <div id="checkboxes">
+            {% for l in letters %}
+            <div id="choices" class="checkboxgroup">
+                <label for="my_radio_button_id{{forloop.counter}}">{{l}}</label>
+                <input type="radio" name="choice" id="my_radio_button_id{{forloop.counter}}" value="{{l}}"/>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="#" onmousedown="checkAnswer()" class="stdButton" id="Check">Check</a>
+        <a href="/app/alphabet" style="display: none" class="stdButton" id="Done">Done</a>
+        {% for l in letters %}
+        <audio id="audio{{forloop.counter0}}" src="{{baseUrl}}/img/{{forloop.counter}}.wav" ></audio>
+        {% endfor %}
+    </body>
+</html>

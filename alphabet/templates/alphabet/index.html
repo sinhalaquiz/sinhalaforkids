@@ -1,0 +1,16 @@
+{% load staticfiles %}
+{% static "" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Sinhala alphabet lessons</title>
+        <link rel="stylesheet" href="{{baseUrl}}alphabet/css/alphabet.css"></link>
+    </head>
+    <body>
+        {% for l in lessons %}
+        <a href="lesson/{{forloop.counter0}}" class="menuButton">{{l}}</a>
+        <p>Lesson {{forloop.counter}}</p>
+        {% endfor %}
+    </body>
+</html>
