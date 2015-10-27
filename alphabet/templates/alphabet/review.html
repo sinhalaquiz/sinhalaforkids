@@ -10,7 +10,7 @@
     <body>
         <script>
             var reviewIter = 0;
-            var letters=[{% for l in letters %}'{{l}}',{% endfor %}];
+            var letters=[{% for l in lesson %}'{{l.letter}}',{% endfor %}];
             function play() {
                 if (reviewIter >= letters.length) {
                     return;
@@ -55,19 +55,19 @@
         </script>
         <h1>Match the sound</h1>
         <input type="image" src="{{baseUrl}}/img/play.png" alt="Play" value="PLAY" onclick="play()">
-        <progress id="Progress" max="{{letters | length}}" value="0"> </progress>
+        <progress id="Progress" max="{{lesson | length}}" value="0"> </progress>
         <div id="checkboxes">
-            {% for l in letters %}
+            {% for l in lesson %}
             <div id="choices" class="checkboxgroup">
-                <label for="my_radio_button_id{{forloop.counter}}">{{l}}</label>
+                <label for="my_radio_button_id{{forloop.counter}}">{{l.letter}}</label>
                 <input type="radio" name="choice" id="my_radio_button_id{{forloop.counter}}" value="{{l}}"/>
             </div>
             {% endfor %}
         </div>
         <a href="#" onmousedown="checkAnswer()" class="stdButton" id="Check">Check</a>
         <a href="/app/alphabet" style="display: none" class="stdButton" id="Done">Done</a>
-        {% for l in letters %}
-        <audio id="audio{{forloop.counter0}}" src="{{baseUrl}}/img/{{forloop.counter}}.wav" ></audio>
+        {% for l in lesson %}
+        <audio id="audio{{forloop.counter0}}" src="{{l.audio}}" ></audio>
         {% endfor %}
     </body>
 </html>

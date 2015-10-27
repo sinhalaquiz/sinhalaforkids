@@ -9,7 +9,7 @@
     </head>
     <body>
         {% for l in lessons %}
-        <a href="lesson/{{forloop.counter0}}" class="menuButton">{{l}}</a>
+        <a href="lesson/{{forloop.counter}}" class="menuButton">{{l}}</a>
         <p>Lesson {{forloop.counter}}</p>
         {% endfor %}
     </body>

@@ -10,7 +10,7 @@
     <body onload="onLoad()">
         <script>
             "use strict";
-            var letters = [{% for l in letters %}'{{l}}',{% endfor %}];
+            var letters = [{% for l in letters %}'{{l.letter}}',{% endfor %}];
             var nextLetter = 0;
 
             function play(id) {
@@ -46,7 +46,7 @@
             function onClickNext() {
                 nextLetter++;
                 if (nextLetter == letters.length) {
-                    window.location.href = "../review/0";
+                    window.location.href = "../review/{{lesson}}";
                     return;
                 }
                 updateLetter(nextLetter);
@@ -63,7 +63,7 @@
         <a href="#" onmousedown="onClickLetter()" class="flashCard" id="bigLetter"> </a>
         <a href="#" onmousedown="onClickNext()" style="display: none" class="stdButton" id="Next">Next</a>
         {% for l in letters %}
-        <audio id="audio{{forloop.counter0}}" src="{{baseUrl}}/img/{{forloop.counter}}.wav" ></audio>
+        <audio id="audio{{forloop.counter0}}" src="{{l.audio}}" ></audio>
         {% endfor %}
     </body>
 </html>

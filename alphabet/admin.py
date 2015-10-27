@@ -1,3 +1,9 @@
 from django.contrib import admin
+from alphabet.models import Lesson
 
-# Register your models here.
+admin.site.register(Lesson)
+
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ('number', 'letter')
+
+
