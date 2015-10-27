@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="{{baseUrl}}alphabet/css/alphabet.css"></link>
     </head>
     <body>
-        {% for l in lessons %}
-        <a href="lesson/{{forloop.counter}}" class="menuButton">{{l}}</a>
-        <p>Lesson {{forloop.counter}}</p>
+        {% for number,letters in lessons%}
+        <a href="lesson/{{forloop.counter}}" class="menuButton">{%for l in letters%}{{l}} {%endfor%}</a>
+        <p>Lesson {{number}}</p>
         {% endfor %}
     </body>
 </html>
