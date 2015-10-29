@@ -46,55 +46,31 @@
                 var choice = document.querySelector('input[name = "choice"]:checked').value;
                 var expect = letters[reviewIter];
                 if (choice === expect) {
-                    // TODO: clean this up like 
-                    // http://www.webdesignerdepot.com/2012/10/creating-a-modal-window-with-html5-and-css3/
-                    var img_nr = 0;
-                    var dlg = document.getElementById("Success");
-                    dlg.onmousedown = function() {
-                        var img = document.getElementById("Success3");
-                        img.style.display = 'none';
-                        img = document.getElementById("Success0");
-                        img.style.display = '';
-                        dlg.close();
-                        showNext();
-                    };
-                    dlg.showModal();
-                    window.setInterval(function() {
-                        var old_img = document.getElementById("Success" + img_nr);
-                        img_nr++;
-                        if (img_nr < 4) {
-                            old_img.style.display = 'none';
-                            var img = document.getElementById("Success" + img_nr);
-                            img.style.display = '';
-                        } else {
-                            window.clearInterval();
-                        }
-                    }, 500);
-
+                    window.location = "#openSuccess";
                 } else {
-                    var dlg = document.getElementById("Fail");
-                    dlg.onmousedown = function () {
-                        dlg.close();
-                    };
-                    dlg.showModal();
+                    window.location = "#openFail";
                 }
             }
         </script>
-        <h1>Match the sound</h1>
-        <dialog id="Success">
-            <div style="width: 320; height: 240;">
-                <img id="Success0" src="{{baseUrl}}/img/success0.png"/>
+        <div id="openFail" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Try again</h2>
+                <img src="{{baseUrl}}/img/fail.png"/>
+            </div>
+        </div>
+        <div id="openSuccess" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close" onmousedown="showNext()">X</a>
+                <h2>Well done!</h2>
+                <img id="Success0" src="{{baseUrl}}/img/success0.png" />
                 <img id="Success1" src="{{baseUrl}}/img/success1.png" style="display: none" />
                 <img id="Success2" src="{{baseUrl}}/img/success2.png" style="display: none" />
                 <img id="Success3" src="{{baseUrl}}/img/success3.png" style="display: none" />
             </div>
-        </dialog>
-        <dialog id="Fail">
-            <div style="width: 320; height: 240;">
-                <img src="{{baseUrl}}/img/fail.png"/>
-            </div>
-        </dialog>
-        <input type="image" src="{{baseUrl}}/img/play.png" alt="Play" value="PLAY" onclick="play()">
+        </div>
+        <h1>Match the sound</h1>
+       <input type="image" src="{{baseUrl}}/img/play.png" alt="Play" value="PLAY" onclick="play()">
         <progress id="Progress" max="{{lesson | length}}" value="0"> </progress>
         <div id="checkboxes">
             {% for l in lesson %}
