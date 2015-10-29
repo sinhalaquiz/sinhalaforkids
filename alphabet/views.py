@@ -1,6 +1,8 @@
 from django.shortcuts import render_to_response
 from alphabet.models import Lesson
 from collections import defaultdict
+from itertools import chain
+import random
 
 def get_lessons():
     d = defaultdict(list)
@@ -22,5 +24,15 @@ def lesson(request, id=0):
 
 def review(request, id=0):
     obj = Lesson.objects.filter(number = int(id))
-    context = {'lesson' : obj}
+    # Get a random letter from the past and append it to
+    # the list that we're going to review
+    past = Lesson.objects.filter(number__lt = int(id))
+    past_len = len(past)
+    if past_len:
+        pastobj = past[random.randint(0, len(past)-1)]
+        lesson = list(chain(obj, [pastobj]))
+    else:
+        lesson = obj
+
+    context = {'lesson' : lesson}
     return render_to_response('alphabet/review.html', context)

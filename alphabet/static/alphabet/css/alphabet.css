@@ -46,7 +46,6 @@ h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,0.8);
     z-index: 99999;
     opacity:0;
     -webkit-transition: opacity 400ms ease-in;
@@ -66,14 +65,15 @@ h1 {
     margin: 10% auto;
     padding: 5px 20px 13px 20px;
     border-radius: 10px;
-    background: #fff;
-    background: -moz-linear-gradient(#fff, #999);
-    background: -webkit-linear-gradient(#fff, #999);
-    background: -o-linear-gradient(#fff, #999);
+    border: BlueViolet solid thick;
+    background: cyan;
+    background: -moz-linear-gradient(cyan, #999);
+    background: -webkit-linear-gradient(cyan, #999);
+    background: -o-linear-gradient(cyan, #999);
 }
 
 .close {
-    background: #606061;
+    background: BlueViolet;
     color: #FFFFFF;
     line-height: 25px;
     position: absolute;
