@@ -7,15 +7,30 @@
         <title>Sinhala alphabet lessons</title>
         <link rel="stylesheet" href="{{baseUrl}}/css/alphabet.css"></link>
     </head>
-    <body>
+    <body onload="onLoad()">
         <script>
             var reviewIter = 0;
             var letters=[{% for l in lesson %}'{{l.letter}}',{% endfor %}];
+            var reviewOrder = [{% for l in lesson %}{{forloop.counter0}},{% endfor %}];
+
+            function onLoad() {
+                reviewOrder = shuffle(reviewOrder);
+            }
+            function shuffle(items) {
+                for (var i=0; i<items.length; i++) {
+                    var swapWith = Math.floor(Math.random() * items.length);
+                    var tmp = items[i];
+                    items[i] = items[swapWith];
+                    items[swapWith] = tmp;
+                }
+                return items;
+            }
             function play() {
                 if (reviewIter >= letters.length) {
                     return;
                 }
-                var audio = document.getElementById('audio' + reviewIter);
+                var nextItem = reviewOrder[reviewIter];
+                var audio = document.getElementById('audio' + nextItem);
                 audio.play();
             }
             function hideElement(id) {
@@ -44,7 +59,8 @@
             }
             function checkAnswer() {
                 var choice = document.querySelector('input[name = "choice"]:checked').value;
-                var expect = letters[reviewIter];
+                var nextItem = reviewOrder[reviewIter];
+                var expect = letters[nextItem];
                 if (choice === expect) {
                     window.location = "#openSuccess";
                 } else {
