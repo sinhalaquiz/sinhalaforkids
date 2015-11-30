@@ -28,7 +28,7 @@
 
             function showElement(id) {
                 var elem = document.getElementById(id);
-                elem.style.display = 'block';
+                elem.style.display = 'initial';
             }
 
             function updateLetter(id)
@@ -60,8 +60,12 @@
             }
         </script>
         <h1>Click the letter</h1>
-        <a href="#" onmousedown="onClickLetter()" class="flashCard" id="bigLetter"> </a>
-        <a href="#" onmousedown="onClickNext()" style="display: none" class="stdButton" id="Next">Next</a>
+        <div>
+            <a href="#" onmousedown="onClickLetter()" class="flashCard" id="bigLetter"> </a>
+        </div>
+        <div>
+            <a href="#" onmousedown="onClickNext()" style="display: none" class="stdButton" id="Next">Next</a>
+        </div>
         {% for l in letters %}
         <audio id="audio{{forloop.counter0}}" src="{{l.audio}}" ></audio>
         {% endfor %}
