@@ -11,15 +11,17 @@
 
 {% block body %}
 <div class="container">
-    <h1>{{heading}}</h1>
-    {% for app in apps %}
-    <div class="galleryItem">
-        {% static "" as baseUrl %}
-        <a href="/{{app.url}}/"><img src="{{baseUrl}}img/{{app.img}}" alt="{{app.name}}"></a>
-        <h3>{{app.name}}</h3>
-        <p>{{app.desc}}</p>
+    <div class="sfk">
+        <h1>{{heading}}</h1>
+        {% for app in apps %}
+        <div class="galleryItem">
+            {% static "" as baseUrl %}
+            <a href="/{{app.url}}/"><img src="{{baseUrl}}img/{{app.img}}" alt="{{app.name}}"></a>
+            <h3>{{app.name}}</h3>
+            <p>{{app.desc}}</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
 

@@ -28,24 +28,28 @@ header {
     border: BlueViolet solid thick;
 }
 
-.container h1 {
+.container embed {
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.sfk {
+    background-color: white;
+}
+
+.sfk h1 {
     color: #797478;
     font: 40px/1.5 Verdana, Helvetica, sans-serif;
     font-variant: small-caps;
     padding: 10px;
 }
 
-.container p,li{
+.sfk p,li{
     color: MediumPurple;
     font: 20px/1.5 "Comic Sans MS", cursive, sans-serif;
     padding: 2px 25px;
-}
-
-.container embed {
-    height: 100%;
-    left: 0;
-    top: 0;
-    width: 100%;
 }
 
 .galleryItem {
