@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Choose the picture</title>
+        <link rel="stylesheet" href="{% static "css/app.css" %}" />
+    </head>
+    <body>
+        <div class="sfk">
+            <h1>Categories</h1>
+            {% for choice in choices %}
+            <div class="galleryItem">
+                <a href="/app/choosepic/{{ choice.name }}"><img src="{{ choice.icon }}" alt=""></a>
+                <h3>{{ choice.name }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

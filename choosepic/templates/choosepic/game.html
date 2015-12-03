@@ -328,8 +328,8 @@ function onChoose(choice)
         <div class="cell left"><a href="#" onmousedown="onChoose(4);"><img src='{% static "choosepic/img/blank.png" %}' id="case4"></a></div>
         <div class="ctrlpanel left">
             <div class="panelchild" id="gameover">
-                <a href="/choosepic/{{category}}" onmousedown="location.reload();"> <img src='{% static "choosepic/img/play.png" %}'/></a>
-                <a href="/choosepic"> <img src='{% static "choosepic/img/stop.png" %}'/></a>
+                <a href="/app/choosepic/{{category}}" onmousedown="location.reload();"> <img src='{% static "choosepic/img/play.png" %}'/></a>
+                <a href="/app/choosepic"> <img src='{% static "choosepic/img/stop.png" %}'/></a>
             </div>
             <div class="panelchild" id="wordpanel">
                 <p id="word"></p>
