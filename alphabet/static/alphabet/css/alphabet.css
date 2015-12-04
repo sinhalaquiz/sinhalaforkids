@@ -118,7 +118,7 @@ h1 {
     pointer-events: auto;
 }
 
-.modalDialog > div {
+.modalDialog div {
     width: 400px;
     position: relative;
     margin: 10% auto;
@@ -129,6 +129,12 @@ h1 {
     background: -moz-linear-gradient(cyan, #999);
     background: -webkit-linear-gradient(cyan, #999);
     background: -o-linear-gradient(cyan, #999);
+}
+
+.modalDialog img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .close {
