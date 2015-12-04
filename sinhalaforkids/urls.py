@@ -18,7 +18,7 @@ class HomePageView(TemplateView):
                 'url' : 'alphabet',
                 'name' : 'Alphabet',     
                 'img' : 'alphabet.png', 
-                'desc' : 'Learn the recognise the shapes and sounds of the Sinhala alphabet' 
+                'desc' : 'Learn to recognise the shapes and sounds of the Sinhala alphabet' 
             },
             { 
                 'url' : 'words',
@@ -105,16 +105,29 @@ class ChoosepicAppView(TemplateView):
 
         return context
 
+class WordQuizAppView(TemplateView):
+    template_name="app.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(WordQuizAppView, self).get_context_data(**kwargs)
+        context['title'] = 'Word Quiz'
+        context['desc'] = 'Learn the meaning and sound of words through a quiz' 
+        context['heading'] = 'Identify the word'
+        context['url'] = '/app/wordquiz'
+
+        return context
+
 urlpatterns = patterns('',
         url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
         url(r'^$', HomePageView.as_view()),
         url(r'^alphabet', AlphabetPageView.as_view()),
         url(r'^choosepic', ChoosepicAppView.as_view()),
+        url(r'^wordquiz', WordQuizAppView.as_view()),
         url(r'^words', WordsPageView.as_view()),
         url(r'^sentences', SentencesPageView.as_view()),
         url(r'^about', TemplateView.as_view(template_name='about.html')),
         url(r'^contact', TemplateView.as_view(template_name='contact.html')),
-        url(r'^wordquiz/', include('wordquiz.urls')),
+        url(r'^app/wordquiz/', include('wordquiz.urls')),
         url(r'^app/choosepic/', include('choosepic.urls')),
         url(r'^treasure/', include('treasure.urls')),
         url(r'^app/alphabet/', include('alphabet.urls')),

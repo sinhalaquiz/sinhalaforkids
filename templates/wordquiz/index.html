@@ -1,13 +1,20 @@
-{% extends "site-common.html" %}
-
-{% block body %}
-<div class="container">
-    <h1>Categories</h1>
-    {% for choice in choices %}
-    <div class="galleryItem">
-        <a href="/wordquiz/{{ choice.name }}/0"><img src="{{ choice.icon }}" alt=""></a>
-        <h3>{{ choice.name }}</h3>
-    </div>
-    {% endfor %}
-</div>
-{% endblock %}
+{% load staticfiles %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Word Quiz</title>
+        <link rel="stylesheet" href="{% static "css/app.css" %}" />
+    </head>
+    <body>
+        <div class="sfk">
+            <h1>Categories</h1>
+            {% for choice in choices %}
+            <div class="galleryItem">
+                <a href="/app/wordquiz/{{ choice.name }}/0"><img src="{{ choice.icon }}" alt=""></a>
+                <h3>{{ choice.name }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

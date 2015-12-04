@@ -1,50 +1,49 @@
-{% extends "site-common.html" %}
 {% load staticfiles %}
-
-{% block title %} Word Quiz ({{cat}}) {% endblock %}
-
-{% block description %} Choose the Sinhala word using the clue {% endblock %}
-
-{% block stylesheets %}
-<link rel="stylesheet" href="{% static "css/alertify.css" %}" />
-<link rel="stylesheet" href="{% static "/static/wordquiz/css/question.css" %}" />
-{% endblock %}
-
-{% block script %}
-function provideFeedback(on_ok)
-{
-    var expect='{{answer}}';
-    var choice = document.querySelector('input[name = "choice"]:checked').value;
-    if (choice === expect)
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <meta name="description=" content="Choose the Sinhala word using the clue">
+        <title>Word Quiz ({{cat}})</title>
+        <link rel="stylesheet" type="text/css" href="{% static "css/alertify.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "/static/wordquiz/css/question.css" %}" />
+        <script src="{% static "js/alertify.js" %}"></script>
+    </head>
+    <script>
+    function provideFeedback(on_ok)
     {
-        alertify.alert("Well done!", on_ok);
-    }
-    else
-    {
-        alertify.alert("The answer is " + expect, on_ok);
-    }
-}
-{% endblock %}
-
-{% block body %}
-<div class="container">
-    <progress max="{{queue | length}}" value="{{ idx }}"> </progress>
-    <div class="question">
-        {% block question %}{% endblock %}
-    </div>
-
-    <div class="options"> 
-        <form action="/wordquiz/{{ cat }}/{{ idx }}" method="post">
-            {% csrf_token %}
-            <input type="hidden", name="queue", value="{{queue}}">
-            <input type="hidden", name="cat", value="{{cat}}">
-            <input type="hidden", name="score", value="{{score}}">
-            {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
-            <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
-            {% endfor %}
-            <button type="button" onclick="provideFeedback(function() { submit(); })">OK</button>
-        </form>
-    </div>
-</div>
-{% endblock %}
-
+        var expect='{{answer}}';
+        var choice = document.querySelector('input[name = "choice"]:checked').value;
+        if (choice === expect)
+        {
+            alertify.alert("Well done!", on_ok);
+        }
+        else
+        {
+            alertify.alert("The answer is " + expect, on_ok);
+        }
+    }    
+    </script>
+    <body>
+        <div class="sfk">
+            <progress max="{{queue | length}}" value="{{ idx }}"> </progress>
+            <div class="question">
+                {% block question %}{% endblock %}
+            </div>
+        
+            <div class="options"> 
+                <form action="/app/wordquiz/{{ cat }}/{{ idx }}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden", name="queue", value="{{queue}}">
+                    <input type="hidden", name="cat", value="{{cat}}">
+                    <input type="hidden", name="score", value="{{score}}">
+                    {% for choice in choices %}<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice }}" {% if forloop.first %}checked{% endif %} />
+                    <label for="choice{{ forloop.counter }}">{{ choice }}</label><br />
+                    {% endfor %}
+                    <button type="button" onclick="provideFeedback(function() { submit(); })">OK</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
