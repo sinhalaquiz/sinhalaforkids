@@ -1,3 +1,5 @@
+@import url("/static/css/app.css");
+
 .lessonItem {
     color: #797478;
     font: 10px/1.5 Verdana, Helvetica, sans-serif;
@@ -30,7 +32,7 @@
     text-shadow: #7ea4bd 0 1px 0;
     color: #06426c;
     font-size: 17px;
-    font-family: helvetica, serif;
+    font-family: 'BhashitaComplex';
     text-decoration: none;
 }
 .menuButton:hover {
@@ -86,7 +88,8 @@ h1 {
     border: 1px solid #018dc4;
     -webkit-border-radius: 24px;
     border-radius: 24px;
-    font: normal 250pt/normal Verdana, Geneva, sans-serif;
+    font-family: 'BhashitaComplex';
+    font: normal 250pt/normal BhashitaComplex;
     color: black;
     -o-text-overflow: clip;
     text-overflow: clip;
