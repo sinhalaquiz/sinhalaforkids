@@ -89,6 +89,12 @@ class SentencesPageView(TemplateView):
                 'img' : 'treasure.png', 
                 'desc' : 'Follow the picture trail using the given clues' 
                 },
+            {
+                'url' : 'storybook',
+                'name' : 'Story Book', 
+                'img' : 'treasure.png', 
+                'desc' : 'Read a story from a selection of e-books'
+                },
             ]
 
         return context
@@ -117,12 +123,25 @@ class WordQuizAppView(TemplateView):
 
         return context
 
+class StoryBookAppView(TemplateView):
+    template_name="app.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(StoryBookAppView, self).get_context_data(**kwargs)
+        context['title'] = 'Story Book'
+        context['desc'] = 'Read a story from a selection of e-books'
+        context['heading'] = 'Select a book'
+        context['url'] = '/app/storybook'
+
+        return context
+
 urlpatterns = patterns('',
         url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
         url(r'^$', HomePageView.as_view()),
         url(r'^alphabet', AlphabetPageView.as_view()),
         url(r'^choosepic', ChoosepicAppView.as_view()),
         url(r'^wordquiz', WordQuizAppView.as_view()),
+        url(r'^storybook', StoryBookAppView.as_view()),
         url(r'^words', WordsPageView.as_view()),
         url(r'^sentences', SentencesPageView.as_view()),
         url(r'^about', TemplateView.as_view(template_name='about.html')),
@@ -130,6 +149,7 @@ urlpatterns = patterns('',
         url(r'^app/wordquiz/', include('wordquiz.urls')),
         url(r'^app/choosepic/', include('choosepic.urls')),
         url(r'^treasure/', include('treasure.urls')),
+        url(r'^app/storybook/', include('storybook.urls')),
         url(r'^app/alphabet/', include('alphabet.urls')),
         url(r'^admin/', include(admin.site.urls)),
         )

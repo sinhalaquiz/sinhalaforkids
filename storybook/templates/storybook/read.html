@@ -1,0 +1,21 @@
+{% load staticfiles %}
+{% static "" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="{{baseUrl}}storybook/css/storybook.css"></link>
+    </head>
+    <body>
+        <div id="container">
+            <div id="art"><img src="{{art}}"/></div>
+            <div id="close">X</div>
+            <div id="controlpanel">
+                <div id="prev"><img src="{{baseUrl}}storybook/img/left.png"/></div>
+                <div id="text">{{text}}</div>
+                <div id="next"><a href="quiz?story=0&from=0&to=1"><img src="{{baseUrl}}storybook/img/right.png"/></a></div>
+            </div>
+        </div>
+    </body>
+</html>

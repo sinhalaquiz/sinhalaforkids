@@ -1,0 +1,17 @@
+{% load staticfiles %}
+{% static "" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Your quiz results</title>
+        <link rel="stylesheet" href="{{baseUrl}}storybook/css/storybook.css"></link>
+    </head>
+    <body>
+        <div id="container">
+            Number of correct answers : 9<br/>
+            Total Number of questions : 12<br/>
+            <div id="nav"><a href="index">Done</a></div>
+        </div>
+    </body>
+</html>

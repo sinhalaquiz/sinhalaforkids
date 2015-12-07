@@ -1,0 +1,64 @@
+#container {
+    width: 640px;
+    margin: 0 auto;
+}
+
+#art{
+    float: left;
+    width: 100%;
+}
+
+#close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index:1;
+}
+
+#prev {
+    float: left;
+}
+
+#text {
+    font-family: BhashitaComplex;
+    text-align: center;
+    font-size: 30px;
+    width: 80%;
+    float: left;
+}
+
+#next {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: left;
+}
+
+.quadrant {
+    width: 50%;
+    height: 225px; 
+}
+
+.question {
+    border-radius: 25px;
+    display: inline-block;
+    width: 80%;
+    height: 50%;
+    border: 3px solid #73AD21;  
+    padding: 20px;
+}
+
+.feedback {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#nav {
+    margin: 0 auto;
+    text-align: center;
+}

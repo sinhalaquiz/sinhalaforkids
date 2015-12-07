@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% static "" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>XXX name of story</title>
+        <link rel="stylesheet" href="{{baseUrl}}storybook/css/storybook.css"></link>
+    </head>
+    <body>
+        <div id="container">
+            <div id="controlpanel">
+                <div class="quadrant left">
+                    <div class="question">
+                        Question 1 <br/>
+                        <input type="radio" name="choice" id="choice0" value="blick" checked/>
+                        <label for="choice0">Blick</label><br />
+                        <input type="radio" name="choice" id="choice1" value="Block"/>
+                        <label for="choice1">Block</label><br />
+                        <input type="radio" name="choice" id="choice2" value="Blah"/>
+                        <label for="choice2">Blah</label><br />
+                    </div>
+                    <div class="feedback">tick</div>
+                </div>
+                <div class="quadrant right">
+                    <div class="question">
+                        Question 2
+                    </div>
+                    <div class="feedback">tick</div>
+                </div>
+                <div class="quadrant left">
+                    <div class="question">
+                        Question 3
+                    </div>
+                    <div class="feedback">tick</div>
+                </div>
+                <div class="quadrant right">
+                    <div class="question">
+                        Question 4
+                    </div>
+                    <div class="feedback">tick</div>
+                </div>
+                <div id="nav"><a href="review?score=0">Done</a></div>
+            </div>
+        </div>
+    </body>
+</html>
