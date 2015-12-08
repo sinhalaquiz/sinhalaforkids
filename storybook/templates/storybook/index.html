@@ -7,6 +7,8 @@
         <title>Sinhala story books</title>
     </head>
     <body>
-        <a href="title?story=0">story</a>
+        {% for story in stories %}
+        <a href="title/{{story.pk}}">{{story.title}}</a>
+        {% endfor %}
     </body>
 </html>
