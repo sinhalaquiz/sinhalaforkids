@@ -5,7 +5,7 @@ urlpatterns = patterns('storybook.views',
     url(r'^index$',     'index'),
     url(r'^title/(?P<story>\d+)$',     'title'),
     url(r'^read/(?P<story>\d+)/(?P<section>\d+)/(?P<page>\d+)$',      'read'),
-    url(r'^quiz$',      'quiz'),
+    url(r'^quiz/(?P<story>\d+)/(?P<section>\d+)$',      'quiz'),
     url(r'^review$',    'review'),
 )
 

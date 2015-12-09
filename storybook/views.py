@@ -29,16 +29,28 @@ def read(request, story, section, page):
     obj = Story.objects.get(id = story)
     section_obj = Section.objects.get(pk=section)
     pages = [i for i in section_obj.page_set.all()]
-    page_obj = pages[int(page)]
-    context = {
-            'title' : obj.title,
-            'art'   : page_obj.image,
-            'text'  : page_obj.text,
-            'page'  : int(page) + 1
-            }
-    return render_to_response('storybook/read.html', context)
+    page = int(page)
+    next_page = page + 1
+    page_obj = pages[page]
+    if next_page < len(pages):
+        context = {
+                'title' : obj.title,
+                'art'   : page_obj.image,
+                'text'  : page_obj.text,
+                'page'  : next_page
+                }
+        return render_to_response('storybook/read-section-mid.html', context)
 
-def quiz(request, id=0):
+    context = {
+            'title'     : obj.title,
+            'art'       : page_obj.image,
+            'text'      : page_obj.text,
+            'story'     : story,
+            'section'   : section
+            }
+    return render_to_response('storybook/read-section-end.html', context)
+
+def quiz(request, story, section):
     context = {}
     return render_to_response('storybook/quiz.html', context)
 
