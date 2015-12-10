@@ -1,0 +1,29 @@
+{% load staticfiles %}
+{% static "" as baseUrl %}
+<!doctype html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>{{title}} (quiz-{{section}})</title>
+        <link rel="stylesheet" href="{{baseUrl}}storybook/css/storybook.css"></link>
+    </head>
+    <body>
+        <div id="container">
+            <div id="controlpanel">
+                {% for q in questions %}
+                <div class="quadrant {% cycle 'left' 'right' %}">
+                    <div class="question">
+                        {{q.text}}<br/><br/>
+                        {% for c in q.choices %}
+                        <input type="radio" name="choice{{forloop.parentloop.counter0}}" id="choice{{forloop.parentloop.counter0}}_{{forloop.counter0}}" value="{{c}}" {% if forloop.first %}checked{% endif %}/>
+                        <label for="choice{{forloop.counter0}}">{{c}}</label><br />
+                        {% endfor %}
+                    </div>
+                    <div class="feedback" id="feedback{{forloop.counter0}}"></div>
+                </div>
+                {% endfor %}
+                <div id="nav"><a href={% block nextpage %}{% endblock %}>Done</a></div>
+            </div>
+        </div>
+    </body>
+</html>

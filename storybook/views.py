@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from storybook.models import Story
 from storybook.models import Section
 from storybook.models import Page
+import random
 
 # The view interface functions
 def index(request):
@@ -48,13 +49,22 @@ def read(request, story, section, page):
             }
     return render_to_response('storybook/read-section-end.html', context)
 
+def shuffle(x):
+    random.shuffle(x)
+    return x
+
 def quiz(request, story, section):
     obj = Story.objects.get(id = story)
     section_obj = obj.section_set.all()[int(section)]
     next_section = int(section) + 1
-    questions = list(section_obj.question_set.all())
+    questions = [ {
+            'text' : q.text,
+            'ans'  : q.answer,
+            'choices' : shuffle([q.answer, q.incorrect1, q.incorrect2])
+        } for q in section_obj.question_set.all()]
     if next_section < obj.section_set.count():
         context = {
+                'title'     : obj.title,
                 'questions' : questions,
                 'story'     : story,
                 'section'   : next_section,

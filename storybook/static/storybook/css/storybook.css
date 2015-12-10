@@ -1,3 +1,8 @@
+@font-face { 
+    font-family: 'BhashitaComplex';
+    src: '{% static 'fonts/LBhashitaComplex.ttf' %}';
+} 
+
 #container {
     width: 640px;
     margin: 0 auto;
@@ -45,6 +50,7 @@
 }
 
 .question {
+    font-family: BhashitaComplex;
     border-radius: 25px;
     display: inline-block;
     width: 80%;
