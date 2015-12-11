@@ -77,6 +77,3 @@ def quiz(request, story, section):
     }
     return render_to_response('storybook/quiz-story-end.html', context)
 
-def review(request, id=0):
-    context = {}
-    return render_to_response('storybook/review.html', context)
