@@ -6,6 +6,31 @@
         <meta charset=utf-8>
         <title>{{title}} (quiz-{{section}})</title>
         <link rel="stylesheet" href="{{baseUrl}}storybook/css/storybook.css"></link>
+        <script>
+            function checkAnswers() {
+                var ans = [{% for q in questions %}"{{q.ans}}",{% endfor %}];
+                var opts = [{% for q in questions %}{{q.choices|length}},{% endfor %}]
+
+                for (var q = 0; q < ans.length; q++) {
+                    for (var o = 0; o < opts[q]; o++) {
+                        var label = 'label' + q + '_' + o;
+                        var elem = document.getElementById(label);
+                        if (ans[q] == elem.textContent) {
+                            ;
+                        } else {
+                            elem.style.textDecoration = "line-through";
+                        }
+                    }
+                }
+            }
+            
+            function setup(ans) {
+                document.getElementById('done').style.display = 'none'; 
+                document.getElementById('check').onclick = checkAnswers; 
+            }
+
+            window.onload = setup
+        </script>
     </head>
     <body>
         <div id="container">
@@ -16,13 +41,16 @@
                         {{q.text}}<br/><br/>
                         {% for c in q.choices %}
                         <input type="radio" name="choice{{forloop.parentloop.counter0}}" id="choice{{forloop.parentloop.counter0}}_{{forloop.counter0}}" value="{{c}}" {% if forloop.first %}checked{% endif %}/>
-                        <label for="choice{{forloop.counter0}}">{{c}}</label><br />
+                        <label id="label{{forloop.parentloop.counter0}}_{{forloop.counter0}}" for="choice{{forloop.counter0}}">{{c}}</label><br />
                         {% endfor %}
                     </div>
                     <div class="feedback" id="feedback{{forloop.counter0}}"></div>
                 </div>
                 {% endfor %}
-                <div id="nav"><a href={% block nextpage %}{% endblock %}>Done</a></div>
+                <div id="nav">
+                    <a id="done" href={% block nextpage %}{% endblock %}>Done</a>
+                    <a id="check" href='#'>Check</a>
+                </div>
             </div>
         </div>
     </body>
