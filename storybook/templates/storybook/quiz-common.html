@@ -15,13 +15,25 @@
                     for (var o = 0; o < opts[q]; o++) {
                         var label = 'label' + q + '_' + o;
                         var elem = document.getElementById(label);
-                        if (ans[q] == elem.textContent) {
-                            ;
-                        } else {
+                        if (ans[q] != elem.textContent) {
                             elem.style.textDecoration = "line-through";
+                        }
+                        var inp = document.getElementById('choice' + q + '_' + o);
+                        if (inp.checked) {
+                            feedback = document.getElementById('feedback' + q);
+                            // Give a tick or a cross
+                            if (inp.value == ans[q]) {
+                                feedback.textContent = '\u2713';
+                                feedback.style.color = 'green';
+                            } else {
+                                feedback.textContent = '\u2717';
+                                feedback.style.color = 'red';
+                            }
                         }
                     }
                 }
+                document.getElementById('done').style.display = 'block'; 
+                document.getElementById('check').style.display = 'none'; 
             }
             
             function setup(ans) {
