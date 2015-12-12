@@ -32,7 +32,7 @@
                         }
                     }
                 }
-                document.getElementById('done').style.display = 'block'; 
+                document.getElementById('done').style.display = 'inline-block'; 
                 document.getElementById('check').style.display = 'none'; 
             }
             
@@ -61,8 +61,8 @@
                 </div>
                 {% endfor %}
                 <div id="nav">
-                    <a id="done" href={% block nextpage %}{% endblock %}>Done</a>
-                    <a id="check" href='#'>Check</a>
+                    <a class="nextButton" id="done" href={% block nextpage %}{% endblock %}>Done</a>
+                    <a class="nextButton" id="check" href='#'>Check</a>
                 </div>
             </div>
         </div>

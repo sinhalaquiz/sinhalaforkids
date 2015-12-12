@@ -13,27 +13,87 @@
     width: 100%;
 }
 
-#close {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    z-index:1;
-}
-
 #prev {
     float: left;
+    width: 16%;
 }
 
 #text {
     font-family: BhashitaComplex;
     text-align: center;
     font-size: 30px;
-    width: 80%;
+    width: 64%;
     float: left;
 }
 
 #next {
     float: right;
+    width: 16%;
+}
+
+.exitButton {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 3px 24px;
+    border: 1px solid #a12727;
+    border-radius: 16px;
+    background: #ff4a4a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff4a4a), to(#992727));
+    background: -moz-linear-gradient(top, #ff4a4a, #992727);
+    background: linear-gradient(to bottom, #ff4a4a, #992727);
+    text-shadow: #591717 1px 1px 1px;
+    font: normal 20px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.exitButton:hover,
+.exitButton:focus {
+    background: #ff5959;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff5959), to(#b62f2f));
+    background: -moz-linear-gradient(top, #ff5959, #b62f2f);
+    background: linear-gradient(to bottom, #ff5959, #b62f2f);
+    color: #ffffff;
+    text-decoration: none;
+}
+.exitButton:active {
+    background: #982727;
+    background: -webkit-gradient(linear, left top, left bottom, from(#982727), to(#982727));
+    background: -moz-linear-gradient(top, #982727, #982727);
+    background: linear-gradient(to bottom, #982727, #982727);
+}
+
+.nextButton {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 3px 24px;
+    border: 1px solid #147f00;
+    border-radius: 16px;
+    background: #25ee00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#25ee00), to(#147f00));
+    background: -moz-linear-gradient(top, #25ee00, #147f00);
+    background: linear-gradient(to bottom, #25ee00, #147f00);
+    text-shadow: #0c4b00 1px 1px 1px;
+    font: normal 20px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.nextButton:hover,
+.nextButton:focus {
+    border: 1px solid ##179500;
+    background: #2cff00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2cff00), to(#189800));
+    background: -moz-linear-gradient(top, #2cff00, #189800);
+    background: linear-gradient(to bottom, #2cff00, #189800);
+    color: #ffffff;
+    text-decoration: none;
+}
+.nextButton:active {
+    background: #147f00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#147f00), to(#147f00));
+    background: -moz-linear-gradient(top, #147f00, #147f00);
+    background: linear-gradient(to bottom, #147f00, #147f00);
 }
 
 .storyChoice {
