@@ -36,6 +36,29 @@
     float: right;
 }
 
+.storyChoice {
+    float: left;
+    width: 200px;
+    margin:  2% 2% 50px 2%;
+    font-family: BhashitaComplex;
+    font-size: 20px;
+}
+
+h1 {
+    color: #797478;
+    font: 40px/1.5 Verdana, Helvetica, sans-serif;
+    font-variant: small-caps;
+    padding: 10px;
+    text-align: center;
+}
+.storyChoice img {
+    width: 100%;
+    height: auto;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .left {
     float: left;
 }

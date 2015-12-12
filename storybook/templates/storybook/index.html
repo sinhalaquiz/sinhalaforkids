@@ -5,10 +5,15 @@
     <head>
         <meta charset=utf-8>
         <title>Sinhala story books</title>
+        <link rel="stylesheet" href="{{baseUrl}}storybook/css/storybook.css"></link>
     </head>
     <body>
+        <h1>Stories</h1>
         {% for story in stories %}
-        <a href="title/{{story.pk}}">{{story.title}}</a>
+        <div class="storyChoice">
+            <a href="title/{{story.pk}}"><img src="{{story.cover_image}}"></a>
+            {{story.title}}
+        </div>
         {% endfor %}
     </body>
 </html>
