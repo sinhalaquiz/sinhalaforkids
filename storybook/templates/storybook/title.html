@@ -11,9 +11,9 @@
         <div id="container">
             <div id="art"><img src="{{art}}"/></div>
             <div id="controlpanel">
-                <div id="prev"><a href="../index" class="exitButton">Exit</a></div>
+                <div id="prev"><a href="{% url 'storybook.views.index' %}" class="exitButton">Exit</a></div>
                 <div id="text">{{title}}</div>
-                <div id="next"><a href="../read/{{story}}/{{section}}/{{page}}" class="nextButton">Next</a></div>
+                <div id="next"><a href="{% url 'storybook.views.read' story section page %}" class="nextButton">Next</a></div>
             </div>
         </div>
     </body>

@@ -11,7 +11,7 @@
         <h1>Stories</h1>
         {% for story in stories %}
         <div class="storyChoice">
-            <a href="title/{{story.pk}}"><img src="{{story.cover_image}}"></a>
+            <a href="{% url 'storybook.views.title' story.pk %}"><img src="{{story.cover_image}}"></a>
             {{story.title}}
         </div>
         {% endfor %}

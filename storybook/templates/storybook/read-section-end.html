@@ -1,2 +1,2 @@
 {% extends "storybook/read-common.html" %}
-{% block nextpage %}"../../../quiz/{{story}}/{{section}}"{% endblock %}
+{% block nextpage %}"{% url 'storybook.views.quiz' story section %}"{% endblock %}

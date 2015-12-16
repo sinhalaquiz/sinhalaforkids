@@ -11,7 +11,7 @@
         <div id="container">
             <div id="art"><img src="{{art}}"/></div>
             <div id="controlpanel">
-                <div id="prev"><a href="../../../index" class="exitButton">Exit</a></div>
+                <div id="prev"><a href="{% url 'storybook.views.index' %}" class="exitButton">Exit</a></div>
                 <div id="text">{{text}}</div>
                 <div id="next"><a href={% block nextpage %}{% endblock %} class="nextButton">Next</a></div>
             </div>

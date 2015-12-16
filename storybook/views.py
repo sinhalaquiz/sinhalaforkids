@@ -36,6 +36,8 @@ def read(request, story, section, page):
                 'title' : obj.title,
                 'art'   : page_obj.image,
                 'text'  : page_obj.text,
+                'story'     : story,
+                'section'   : section,
                 'page'  : next_page
                 }
         return render_to_response('storybook/read-section-mid.html', context)
