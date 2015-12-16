@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /choosepic/*
-Disallow: /wordquiz/*
-Disallow: /treasure/*
+Disallow: /app/choosepic/*
+Disallow: /app/wordquiz/*

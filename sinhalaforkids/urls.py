@@ -36,114 +36,103 @@ class HomePageView(TemplateView):
 
         return context
 
-class AlphabetPageView(TemplateView):
-    template_name="app.html"
+class AppRepo():
+    apps = [
+        {
+            'name'  : 'alphabet',
+            'category' : 'alphabet',
+            'title' :  'Sinhala alphabet',
+            'img' : 'alphabet.png', 
+            'desc' : 'Learn to recognise the shapes and sounds of the ' \
+                     'Sinhala alphabet',
+            'url' : 'alphabet',
+        },
+        {
+            'name' : 'choosepic',
+            'category' : 'words',
+            'title' : 'Choose the picture',
+            'img' : 'choosepic.png', 
+            'desc' :  'Choose the picture that matches the given word',
+            'url' :  'choosepic',
+        },
+        {
+            'name' : 'wordquiz',
+            'category' : 'words',
+            'title' : 'Word Quiz',
+            'img' : 'wordquiz.png', 
+            'desc' : 'Learn the meaning and sound of words through a quiz',
+            'url' : 'wordquiz',
+        },
+        { 
+            'name' : 'Treasure Hunt', 
+            'category' : 'sentences',
+            'title' : 'Treasure Hunt',
+            'img' : 'treasure.png', 
+            'desc' : 'Follow the picture trail using the given clues',
+            'url' : 'treasure',
+        },
+        {
+            'name' : 'storybook', 
+            'category' : 'sentences',
+            'title' : 'Story Book',
+            'img' : 'treasure.png', 
+            'desc' : 'Read a story from a selection of e-books',
+            'url' : 'storybook',
+        },
+     ]
 
-    def get_context_data(self, **kwargs):
-        context = super(AlphabetPageView, self).get_context_data(**kwargs)
-        context['title'] = 'Sinhala alphabet'
-        context['desc'] = 'Learn the recognise the shapes and sounds of the ' \
-            'Sinhala alphabet'
-        context['heading'] = 'Choose your lesson'
-        context['url'] = '/app/alphabet'
+
+class AppView(TemplateView, AppRepo):
+    name = None
+    template_name = "app.html"
+
+    def _get_app_context(self, name, context):
+        for a in self.apps:
+            if a['name'] == name:
+                context['title'] = a['title']
+                context['desc'] = a['desc']
+                context['url'] = a['url']
+                break
 
         return context
 
-class WordsPageView(TemplateView):
-    template_name="index.html"
+    def get_context_data(self, **kwargs):
+        context = super(TemplateView, self).get_context_data(**kwargs)
+        return self._get_app_context(self.name, context)
+
+class CategoryPageView(TemplateView, AppRepo):
+    template_name = "index.html"
+    category = None
 
     def get_context_data(self, **kwargs):
-        context = super(WordsPageView, self).get_context_data(**kwargs)
+        context = super(CategoryPageView, self).get_context_data(**kwargs)
+
+        cat_apps = []
+        for a in self.apps:
+            if a['category'] == self.category:
+                cat_apps.append({
+                    'url' : a['url'],
+                    'name' : a['name'],
+                    'img' : a['img'],
+                    'desc' : a['desc']
+                })
+
         context['title'] = 'Learn Sinhala words'
         context['desc'] = 'Expand your vocabulary through these activities'
         context['heading'] = 'Choose your activity'
-        context['apps'] = [
-            { 
-                'url' : 'wordquiz',
-                'name' : 'Word Quiz',     
-                'img' : 'wordquiz.png', 
-                'desc' : 'Learn the meaning and sound of words through a quiz' 
-                },
-            {
-                'url' : 'choosepic',
-                'name' : 'Pick the pic',  
-                'img' : 'choosepic.png', 
-                'desc' : 'Choose the picture that matches a given word' 
-            },
-        ]
-
-        return context
-
-class SentencesPageView(TemplateView):
-    template_name="index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(SentencesPageView, self).get_context_data(**kwargs)
-        context['title'] = 'Learning Sentences'
-        context['desc'] = 'Activities to help learn to read and understand sentences in Sinhala'
-        context['heading'] = 'Choose your activity'
-        context['apps'] = [
-            { 
-                'url' : 'treasure',
-                'name' : 'Treasure Hunt', 
-                'img' : 'treasure.png', 
-                'desc' : 'Follow the picture trail using the given clues' 
-                },
-            {
-                'url' : 'storybook',
-                'name' : 'Story Book', 
-                'img' : 'treasure.png', 
-                'desc' : 'Read a story from a selection of e-books'
-                },
-            ]
-
-        return context
-
-class ChoosepicAppView(TemplateView):
-    template_name="app.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(ChoosepicAppView, self).get_context_data(**kwargs)
-        context['title'] = 'Choose the picture'
-        context['desc'] = 'Choose the picture that matches the given word'
-        context['heading'] = 'Choose the picture'
-        context['url'] = '/app/choosepic'
-
-        return context
-
-class WordQuizAppView(TemplateView):
-    template_name="app.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(WordQuizAppView, self).get_context_data(**kwargs)
-        context['title'] = 'Word Quiz'
-        context['desc'] = 'Learn the meaning and sound of words through a quiz' 
-        context['heading'] = 'Identify the word'
-        context['url'] = '/app/wordquiz'
-
-        return context
-
-class StoryBookAppView(TemplateView):
-    template_name="app.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(StoryBookAppView, self).get_context_data(**kwargs)
-        context['title'] = 'Story Book'
-        context['desc'] = 'Read a story from a selection of e-books'
-        context['heading'] = 'Select a book'
-        context['url'] = '/app/storybook'
+        context['apps'] = cat_apps
 
         return context
 
 urlpatterns = patterns('',
         url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
         url(r'^$', HomePageView.as_view()),
-        url(r'^alphabet', AlphabetPageView.as_view()),
-        url(r'^choosepic', ChoosepicAppView.as_view()),
-        url(r'^wordquiz', WordQuizAppView.as_view()),
-        url(r'^storybook', StoryBookAppView.as_view()),
-        url(r'^words', WordsPageView.as_view()),
-        url(r'^sentences', SentencesPageView.as_view()),
+        url(r'^alphabet', AppView.as_view(name='alphabet')),
+        url(r'^choosepic', AppView.as_view(name='choosepic')),
+        url(r'^wordquiz', AppView.as_view(name='wordquiz')),
+        url(r'^storybook', AppView.as_view(name='storybook')),
+        url(r'^words', CategoryPageView.as_view(category='words')),
+        url(r'^sentences', CategoryPageView.as_view(category='sentences')),
         url(r'^about', TemplateView.as_view(template_name='about.html')),
         url(r'^contact', TemplateView.as_view(template_name='contact.html')),
         url(r'^app/wordquiz/', include('wordquiz.urls')),
